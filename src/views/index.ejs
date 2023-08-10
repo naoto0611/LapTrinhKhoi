@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Blockly Calculator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/blockly"></script>
 </head>
+
 <body>
     <h1>Blockly Calculator</h1>
     <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
@@ -21,61 +23,33 @@
         <category name="Operations">
             <!-- Khối Cộng (Addition) -->
             <block type="math_addition">
-                <field name="OP">ADD</field>
                 <value name="A">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
                 <value name="B">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
             </block>
 
             <!-- Khối Trừ (Subtraction) -->
             <block type="math_subtraction">
-                <field name="OP">MINUS</field>
                 <value name="A">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
                 <value name="B">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
             </block>
 
             <!-- Khối Nhân (Multiplication) -->
             <block type="math_multiplication">
-                <field name="OP">MULTIPLY</field>
                 <value name="A">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
                 <value name="B">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
             </block>
 
             <!-- Khối Chia (Division) -->
             <block type="math_division">
-                <field name="OP">DIVIDE</field>
                 <value name="A">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
                 <value name="B">
-                    <!-- <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow> -->
                 </value>
             </block>
         </category>
@@ -84,13 +58,21 @@
         </category>
     </xml>
     <button onclick="runCode()">Run</button>
+    <button onclick="exportBlocks()">Export</button>
+    <input type="file" id="importInput">
+    <button onclick="importBlocks()">Import</button>
     <p id="result">Result:</p>
+    <button onclick="generateCode()">Generate Code</button>
+    <div id="codeEditor">
+        <textarea id="codeInput" rows="10" cols="50"></textarea>
+        <button onclick="applyCodeChanges()">Apply Changes</button>
+    </div>
 
     <script>
         var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
 
         Blockly.Blocks['math_addition'] = {
-            init: function() {
+            init: function () {
                 this.jsonInit({
                     "message0": "Tổng của %1 + %2",
                     "args0": [
@@ -107,7 +89,7 @@
                     ],
                     "output": "Number",
                     "inputsInline": true,
-                    "colour":  "#FF6600",
+                    "colour": "#FF6600",
                     "tooltip": "Phép cộng hai số",
                     "helpUrl": ""
                 });
@@ -115,7 +97,7 @@
         };
 
         Blockly.Blocks['math_subtraction'] = {
-            init: function() {
+            init: function () {
                 this.jsonInit({
                     "message0": " Hiệu của %1 - %2",
                     "args0": [
@@ -132,7 +114,7 @@
                     ],
                     "output": "Number",
                     "inputsInline": true,
-                    "colour": "#0066CC" ,
+                    "colour": "#0066CC",
                     "tooltip": "Phép trừ hai số",
                     "helpUrl": ""
                 });
@@ -140,7 +122,7 @@
         };
 
         Blockly.Blocks['math_multiplication'] = {
-            init: function() {
+            init: function () {
                 this.jsonInit({
                     "message0": "Tích của %1 x %2",
                     "args0": [
@@ -165,7 +147,7 @@
         };
 
         Blockly.Blocks['math_division'] = {
-            init: function() {
+            init: function () {
                 this.jsonInit({
                     "message0": "Phân của %1 : %2",
                     "args0": [
@@ -189,40 +171,139 @@
             }
         };
 
-        Blockly.JavaScript['math_addition'] = function(block) {
+        Blockly.JavaScript['math_addition'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
             var code = value_a + ' + ' + value_b;
             return [code, Blockly.JavaScript.ORDER_ADDITION];
         };
 
-        Blockly.JavaScript['math_subtraction'] = function(block) {
+        Blockly.JavaScript['math_subtraction'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
             var code = value_a + ' - ' + value_b;
             return [code, Blockly.JavaScript.ORDER_SUBTRACTION];
         };
 
-        Blockly.JavaScript['math_multiplication'] = function(block) {
+        Blockly.JavaScript['math_multiplication'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
             var code = value_a + ' * ' + value_b;
             return [code, Blockly.JavaScript.ORDER_MULTIPLICATION];
         };
 
-        Blockly.JavaScript['math_division'] = function(block) {
+        Blockly.JavaScript['math_division'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
             var code = value_a + ' / ' + value_b;
             return [code, Blockly.JavaScript.ORDER_DIVISION];
         };
 
+        Blockly.JavaScript.updateWorkspaceBlocks = function (workspace, code) {
+            // Iterate through the generated blocks
+            workspace.getAllBlocks().forEach(function (block) {
+                if (block.type !== 'math_number') {
+                    // Update block values based on newCode
+                    var blockGenerator = Blockly.JavaScript[block.type];
+                    if (blockGenerator) {
+                        blockGenerator(block);
+                    }
+                }
+            });
+        }
+
         function runCode() {
-            Blockly.JavaScript.addReservedWords('code');
+            // Execute the generated Blockly code
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             var result = eval(code);
             document.getElementById('result').textContent = 'Result: ' + result;
         }
+
+        function exportBlocks() {
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            var xmlText = Blockly.Xml.domToPrettyText(xml);
+
+            var filename = prompt("Nhập tên tệp:", "blocks");
+            if (filename !== null && filename.trim() !== "") {
+                if (!filename.endsWith(".xml")) {
+                    filename += ".xml"; // Đảm bảo rằng tên tệp có đuôi .xml
+                }
+                download(filename, xmlText);
+            }
+        }
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function importBlocks() {
+            var importInput = document.getElementById("importInput");
+            var file = importInput.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var xmlText = event.target.result;
+                    var parser = new DOMParser();
+                    var xml = parser.parseFromString(xmlText, "text/xml");
+
+                    if (xml.getElementsByTagName('xml').length > 0) {
+                        xml = xml.getElementsByTagName('xml')[0];
+                        Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+                    } else {
+                        alert("Tệp dữ liệu không hợp lệ.");
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function generateCode() {
+            // Generate Blockly code and display it in the textarea
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            document.getElementById('codeInput').value = code;
+        }
+
+        function applyCodeChanges() {
+            // Get the modified code from the textarea
+            var newCode = document.getElementById('codeInput').value;
+
+            // Execute the new code to update blocks
+            try {
+                // Initialize Blockly JavaScript generator
+                Blockly.JavaScript.init(workspace);
+
+                // Run the new code to update block values
+                eval(newCode);
+
+                // Update block values based on new code
+                workspace.getAllBlocks().forEach(function (block) {
+                    if (block.type !== 'math_number') {
+                        var blockGenerator = Blockly.JavaScript[block.type];
+                        if (blockGenerator) {
+                            var newValueA = block.getFieldValue('A');
+                            var newValueB = block.getFieldValue('B');
+                            block.setFieldValue(newValueA, 'A'); // Use 'A' instead of 'NUM'
+                            block.setFieldValue(newValueB, 'B'); // Use 'B' instead of 'NUM'
+                        }
+                    }
+                });
+
+                // Re-generate Blockly code to reflect changes
+                var updatedCode = Blockly.JavaScript.workspaceToCode(workspace);
+                document.getElementById('codeInput').value = updatedCode;
+            } catch (error) {
+                alert('Error applying changes: ' + error);
+            }
+        }
+
     </script>
 </body>
+
 </html>
