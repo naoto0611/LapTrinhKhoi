@@ -1,25 +1,43 @@
 {
-  "name": "blockly",
+  "name": "laptrinhkhoi",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "main": "src/index.js",
+  "description": "Store and update version code for the final",
+  "main": "server.js",
   "dependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "app-root-path": "^3.1.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "blockly": "1.0.0",
     "node-blockly": "1.0.35",
+    "ejs": "^3.1.9",
     "react": "16.8.3",
     "react-blockly-component": "3.2.0",
     "react-blockly-drawer": "1.6.6",
     "react-dom": "16.8.3",
-    "react-scripts": "2.0.3"
+    "react-scripts": "2.0.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.21"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naoto0611/LapTrinhKhoi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naoto0611/LapTrinhKhoi/issues"
+  },
+  "homepage": "https://github.com/naoto0611/LapTrinhKhoi#readme",
   "browserslist": [
     ">0.2%",
     "not dead",
