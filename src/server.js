@@ -13,11 +13,18 @@ const port = process.env.PORT;
 //setup view engine
 configViewEngine(app);
 
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.get('/', (req, res) => {
-  res.render('index.ejs')
+  res.render('homepage.ejs')
 })
 
-// app.use(express.static('public')); // Serve static files from the 'public' directory
+app.use(express.static('public')); // Serve static files from the 'public' directory
 
 app.listen(port, () => {
   console.log(`port: ${port}`)
