@@ -5,6 +5,7 @@
     <title>Blockly Calculator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/blockly"></script>
+    <script src="https://unpkg.com/blockly/python_compressed"></script>
 </head>
 
 <body>
@@ -62,7 +63,6 @@
     <input type="file" id="importInput">
     <button onclick="importBlocks()">Import</button>
     <p id="result">Result:</p>
-    <button onclick="generateCode()">Generate Code</button>
     <div id="codeEditor">
         <textarea id="codeInput" rows="10" cols="50"></textarea>
         <button onclick="applyCodeChanges()">Apply Changes</button>
@@ -264,11 +264,15 @@
             }
         }
 
-        function generateCode() {
+        function updateCode() {
             // Generate Blockly code and display it in the textarea
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             document.getElementById('codeInput').value = code;
         }
+
+        // Add an event listener to workspace to update the code whenever blocks change
+        workspace.addChangeListener(updateCode);
+
 
         function applyCodeChanges() {
             // Get the modified code from the textarea
