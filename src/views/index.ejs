@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/blockly"></script>
     <script src="https://unpkg.com/blockly/python_compressed"></script>
+
 </head>
 
 <body>
@@ -13,7 +14,7 @@
     <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
     <xml id="toolbox" style="display: none">
         <!-- Category "Khối nhập" (Blocks for Input) -->
-        <category name="Input">
+        <category name="Input" colour="#5b80a5">
             <!-- Bổ sung label "Nhập số tự nhiên" -->
             <block type="math_number">
                 <field name="NUM" text="Nhập số tự nhiên"></field>
@@ -21,7 +22,7 @@
         </category>
 
         <!-- Category "Khối Phép tính" (Blocks for Arithmetic Operations) -->
-        <category name="Operations">
+        <category name="Operations" colour="#76b75d">
             <!-- Khối Cộng (Addition) -->
             <block type="math_addition">
                 <value name="A">
@@ -29,7 +30,6 @@
                 <value name="B">
                 </value>
             </block>
-
             <!-- Khối Trừ (Subtraction) -->
             <block type="math_subtraction">
                 <value name="A">
@@ -37,7 +37,6 @@
                 <value name="B">
                 </value>
             </block>
-
             <!-- Khối Nhân (Multiplication) -->
             <block type="math_multiplication">
                 <value name="A">
@@ -45,7 +44,6 @@
                 <value name="B">
                 </value>
             </block>
-
             <!-- Khối Chia (Division) -->
             <block type="math_division">
                 <value name="A">
@@ -53,10 +51,54 @@
                 <value name="B">
                 </value>
             </block>
-        </category>
-        <category name="Variable" custom="VARIABLE">
+            <!-- Khối Mũ (Exponentiation) -->
+            <block type="math_exponentiation">
+                <value name="A">
+                </value>
+                <value name="B">
+                </value>
+            </block>
+            <!-- Khối Căn bậc hai (Square Root) -->
+            <block type="math_square_root">
+                <value name="NUM">
+                </value>
+            </block>
+            <!-- Khối Chia lấy dư (Modulo) -->
+            <block type="math_modulo">
+                <value name="DIVIDEND">
+                </value>
+                <value name="DIVISOR">
+                </value>
+            </block>
+            <!-- Khối căn tùy chỉnh -->
+            <block type="math_custom_root"></block>
+            <!-- Khối giao giừa (Factorial) -->
+            <block type="math_factorial"></block>
 
         </category>
+
+
+        <!-- Variable blocks -->
+        <category name="Variable" custom="VARIABLE" colour="#db7c38">
+
+        </category>
+
+        <!-- Logic blocks -->
+        <category name="Logic" colour="#d84a5b">
+            <block type="controls_if"></block>
+            <block type="logic_compare"></block>
+            <block type="controls_ifelse"></block>
+        </category>
+
+        <!-- Loop blocks -->
+        <category name="Loops" colour="#4b9f95">
+            <block type="controls_repeat_ext"></block>
+            <block type="controls_whileUntil"></block>
+            <!-- Thêm các khối vòng lặp khác tại đây -->
+        </category>
+
+
+
     </xml>
     <button onclick="runCode()">Run</button>
     <button onclick="exportBlocks()">Export</button>
@@ -65,7 +107,6 @@
     <p id="result">Result:</p>
     <div id="codeEditor">
         <textarea id="codeInput" rows="10" cols="50"></textarea>
-        <button onclick="applyCodeChanges()">Apply Changes</button>
     </div>
 
     <script>
@@ -171,6 +212,124 @@
             }
         };
 
+        Blockly.Blocks['math_exponentiation'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "%1 mũ %2",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "A",
+                            "check": "Number"
+                        },
+                        {
+                            "type": "input_value",
+                            "name": "B",
+                            "check": "Number"
+                        }
+                    ],
+                    "output": "Number",
+                    "inputsInline": true,
+                    "colour": "#FF9900",
+                    "tooltip": "Lũy thừa hai số",
+                    "helpUrl": ""
+                });
+            }
+        };
+
+
+
+        Blockly.Blocks['math_square_root'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Căn bậc hai của %1",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "NUM",
+                            "check": "Number"
+                        }
+                    ],
+                    "output": "Number",
+                    "inputsInline": true,
+                    "colour": "#FFCC00",
+                    "tooltip": "Căn bậc hai của một số",
+                    "helpUrl": ""
+                });
+            }
+
+        };
+
+        Blockly.Blocks['math_modulo'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "%1 chia lấy dư cho %2",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "DIVIDEND",
+                            "check": "Number"
+                        },
+                        {
+                            "type": "input_value",
+                            "name": "DIVISOR",
+                            "check": "Number"
+                        }
+                    ],
+                    "output": "Number",
+                    "inputsInline": true,
+                    "colour": "#99CC33",
+                    "tooltip": "Chia một số lấy dư cho số khác",
+                    "helpUrl": ""
+                });
+            }
+        };
+
+        Blockly.Blocks['math_custom_root'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Căn bậc %1 của %2",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "INDEX",
+                            "check": "Number"
+                        },
+                        {
+                            "type": "input_value",
+                            "name": "NUM",
+                            "check": "Number"
+                        }
+                    ],
+                    "output": "Number",
+                    "inputsInline": true,
+                    "colour": "#BACC00",
+                    "tooltip": "Căn bậc x của y",
+                    "helpUrl": ""
+                });
+            }
+        };
+        Blockly.Blocks['math_factorial'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "%1!",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "NUM",
+                            "check": "Number"
+                        }
+                    ],
+                    "output": "Number",
+                    "inputsInline": true,
+                    "colour": "#FFCC00",
+                    "tooltip": "Tính giai thừa của một số",
+                    "helpUrl": ""
+                });
+            }
+        };
+
+
         Blockly.JavaScript['math_addition'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
@@ -198,6 +357,53 @@
             var code = value_a + ' / ' + value_b;
             return [code, Blockly.JavaScript.ORDER_DIVISION];
         };
+
+        Blockly.JavaScript['math_exponentiation'] = function (block) {
+            var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
+            var code = 'Math.pow(' + value_a + ', ' + value_b + ')';
+            return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+        };
+
+        Blockly.JavaScript['math_square_root'] = function (block) {
+            var value_num = Blockly.JavaScript.valueToCode(block, 'NUM', Blockly.JavaScript.ORDER_ATOMIC);
+            var code = 'Math.sqrt(' + value_num + ')';
+            return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+        };
+
+        Blockly.JavaScript['math_modulo'] = function (block) {
+            var value_dividend = Blockly.JavaScript.valueToCode(block, 'DIVIDEND', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_divisor = Blockly.JavaScript.valueToCode(block, 'DIVISOR', Blockly.JavaScript.ORDER_ATOMIC);
+            var code = value_dividend + ' % ' + value_divisor;
+            return [code, Blockly.JavaScript.ORDER_MODULUS];
+        };
+
+        Blockly.JavaScript['math_custom_root'] = function (block) {
+            var value_index = Blockly.JavaScript.valueToCode(block, 'INDEX', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_num = Blockly.JavaScript.valueToCode(block, 'NUM', Blockly.JavaScript.ORDER_ATOMIC);
+            var code = 'Math.pow(' + value_num + ', 1 / ' + value_index + ')';
+            return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+        };
+
+        Blockly.JavaScript['math_factorial'] = function (block) {
+            var value_num = Blockly.JavaScript.valueToCode(block, 'NUM', Blockly.JavaScript.ORDER_ATOMIC);
+
+            var functionName = Blockly.JavaScript.provideFunction_(
+                'math_factorial',
+                ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
+                    '  if (n === 0 || n === 1) {',
+                    '    return 1;',
+                    '  } else {',
+                '    return n * ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + '(n - 1);',
+                    '  }',
+                    '}']);
+
+            var code = functionName + '(' + value_num + ')';
+            return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+        };
+
+
+
 
         Blockly.JavaScript.updateWorkspaceBlocks = function (workspace, code) {
             // Iterate through the generated blocks
@@ -274,38 +480,7 @@
         workspace.addChangeListener(updateCode);
 
 
-        function applyCodeChanges() {
-            // Get the modified code from the textarea
-            var newCode = document.getElementById('codeInput').value;
 
-            // Execute the new code to update blocks
-            try {
-                // Initialize Blockly JavaScript generator
-                Blockly.JavaScript.init(workspace);
-
-                // Run the new code to update block values
-                eval(newCode);
-
-                // Update block values based on new code
-                workspace.getAllBlocks().forEach(function (block) {
-                    if (block.type !== 'math_number') {
-                        var blockGenerator = Blockly.JavaScript[block.type];
-                        if (blockGenerator) {
-                            var newValueA = block.getFieldValue('A');
-                            var newValueB = block.getFieldValue('B');
-                            block.setFieldValue(newValueA, 'A'); // Use 'A' instead of 'NUM'
-                            block.setFieldValue(newValueB, 'B'); // Use 'B' instead of 'NUM'
-                        }
-                    }
-                });
-
-                // Re-generate Blockly code to reflect changes
-                var updatedCode = Blockly.JavaScript.workspaceToCode(workspace);
-                document.getElementById('codeInput').value = updatedCode;
-            } catch (error) {
-                alert('Error applying changes: ' + error);
-            }
-        }
 
     </script>
 </body>
