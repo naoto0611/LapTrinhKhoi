@@ -19,6 +19,15 @@
             <block type="math_number">
                 <field name="NUM" text="Nhập số tự nhiên"></field>
             </block>
+
+        </category>
+
+        <category name="String" colour="#5b80a5">
+            <block type="string_input"></block>
+            <block type="string_concatenate"></block>
+            <block type="string_length"></block>
+            <block type="string_slice"></block>
+
         </category>
 
         <!-- Category "Khối Phép tính" (Blocks for Arithmetic Operations) -->
@@ -97,6 +106,14 @@
             <!-- Thêm các khối vòng lặp khác tại đây -->
         </category>
 
+        <category name="Functions" colour="#BACC00">
+            <block type="procedures_defreturn" gap="8">
+                <field name="NAME">sum_of_three</field>
+                <statement name="STACK">
+                </statement>
+            </block>
+        </category>
+
 
 
     </xml>
@@ -111,11 +128,100 @@
 
     <script>
         var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
+        // String input
+        Blockly.Blocks['string_input'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Input string: %1",
+                    "args0": [
+                        {
+                            "type": "field_input",
+                            "name": "TEXT",
+                            "text": ""
+                        }
+                    ],
+                    "output": "String",
+                    "colour": 160,
+                    "tooltip": "This block allows the user to input a string."
+                });
+            }
+        };
+
+        Blockly.Blocks['string_concatenate'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Concatenate strings %1 and %2",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "STRING1",
+                            "check": "String"
+                        },
+                        {
+                            "type": "input_value",
+                            "name": "STRING2",
+                            "check": "String"
+                        }
+                    ],
+                    "output": "String",
+                    "colour": 160,
+                    "tooltip": "Concatenate two strings together"
+                });
+            }
+        };
+
+        Blockly.Blocks['string_length'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Length of string %1",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "STRING",
+                            "check": "String"
+                        }
+                    ],
+                    "output": "Number",
+                    "colour": 160,
+                    "tooltip": "Return the length of the string."
+                });
+            }
+        };
+
+        Blockly.Blocks['string_slice'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Slice string %1 from position %2 to %3",
+                    "args0": [
+                        {
+                            "type": "input_value",
+                            "name": "STRING",
+                            "check": "String"
+                        },
+                        {
+                            "type": "input_value",
+                            "name": "START",
+                            "check": "Number"
+                        },
+                        {
+                            "type": "input_value",
+                            "name": "END",
+                            "check": "Number"
+                        }
+                    ],
+                    "output": "String",
+                    "colour": 160,
+                    "tooltip": "Slice a portion of the string from the starting position to the ending position."
+                });
+            }
+        };
+
+
 
         Blockly.Blocks['math_addition'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "Tổng của %1 + %2",
+                    "message0": "Sum of %1 and %2",
                     "args0": [
                         {
                             "type": "input_value",
@@ -131,7 +237,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#FF6600",
-                    "tooltip": "Phép cộng hai số",
+                    "tooltip": "Addition of two numbers",
                     "helpUrl": ""
                 });
             }
@@ -140,7 +246,7 @@
         Blockly.Blocks['math_subtraction'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": " Hiệu của %1 - %2",
+                    "message0": "Difference between %1 and %2",
                     "args0": [
                         {
                             "type": "input_value",
@@ -156,7 +262,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#0066CC",
-                    "tooltip": "Phép trừ hai số",
+                    "tooltip": "Subtraction of two numbers",
                     "helpUrl": ""
                 });
             }
@@ -165,7 +271,7 @@
         Blockly.Blocks['math_multiplication'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "Tích của %1 x %2",
+                    "message0": "Product of %1 and %2",
                     "args0": [
                         {
                             "type": "input_value",
@@ -181,7 +287,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#FF33CC",
-                    "tooltip": "Phép nhân hai số",
+                    "tooltip": "Multiplication of two numbers",
                     "helpUrl": ""
                 });
             }
@@ -190,7 +296,7 @@
         Blockly.Blocks['math_division'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "Phân của %1 : %2",
+                    "message0": "Quotient of %1 divided by %2",
                     "args0": [
                         {
                             "type": "input_value",
@@ -206,7 +312,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#00CC66",
-                    "tooltip": "Phép chia hai số",
+                    "tooltip": "Division of two numbers",
                     "helpUrl": ""
                 });
             }
@@ -215,7 +321,7 @@
         Blockly.Blocks['math_exponentiation'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "%1 mũ %2",
+                    "message0": "Exponentiation of %1 to the power of %2",
                     "args0": [
                         {
                             "type": "input_value",
@@ -231,7 +337,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#FF9900",
-                    "tooltip": "Lũy thừa hai số",
+                    "tooltip": "Exponentiation",
                     "helpUrl": ""
                 });
             }
@@ -242,7 +348,7 @@
         Blockly.Blocks['math_square_root'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "Căn bậc hai của %1",
+                    "message0": "Square root of %1",
                     "args0": [
                         {
                             "type": "input_value",
@@ -253,7 +359,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#FFCC00",
-                    "tooltip": "Căn bậc hai của một số",
+                    "tooltip": "Square root",
                     "helpUrl": ""
                 });
             }
@@ -263,7 +369,7 @@
         Blockly.Blocks['math_modulo'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "%1 chia lấy dư cho %2",
+                    "message0": "Modulus of %1 divided by %2",
                     "args0": [
                         {
                             "type": "input_value",
@@ -279,7 +385,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#99CC33",
-                    "tooltip": "Chia một số lấy dư cho số khác",
+                    "tooltip": "Modulus or remainder",
                     "helpUrl": ""
                 });
             }
@@ -288,7 +394,7 @@
         Blockly.Blocks['math_custom_root'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "Căn bậc %1 của %2",
+                    "message0": "Square root of %2 to the power of %1",
                     "args0": [
                         {
                             "type": "input_value",
@@ -304,7 +410,7 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#BACC00",
-                    "tooltip": "Căn bậc x của y",
+                    "tooltip": "Square root of B to the power of A",
                     "helpUrl": ""
                 });
             }
@@ -312,7 +418,7 @@
         Blockly.Blocks['math_factorial'] = {
             init: function () {
                 this.jsonInit({
-                    "message0": "%1!",
+                    "message0": "Factorial of %1",
                     "args0": [
                         {
                             "type": "input_value",
@@ -323,10 +429,42 @@
                     "output": "Number",
                     "inputsInline": true,
                     "colour": "#FFCC00",
-                    "tooltip": "Tính giai thừa của một số",
+                    "tooltip": "Factorial calculation",
                     "helpUrl": ""
                 });
             }
+        };
+        // String processing
+        // Xử lý khối nhập chuỗi
+        Blockly.JavaScript['string_input'] = function (block) {
+            var text_input = block.getFieldValue('TEXT');
+            var code = "'" + text_input + "'";
+            return [code, Blockly.JavaScript.ORDER_ATOMIC];
+        };
+
+
+        // Xử lý khối nối chuỗi
+        Blockly.JavaScript['string_concatenate'] = function (block) {
+            var value_string1 = Blockly.JavaScript.valueToCode(block, 'STRING1', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_string2 = Blockly.JavaScript.valueToCode(block, 'STRING2', Blockly.JavaScript.ORDER_ATOMIC);
+            var code = value_string1 + ' + ' + value_string2;
+            return [code, Blockly.JavaScript.ORDER_ADDITION];
+        };
+
+        // Xử lý khối độ dài chuỗi
+        Blockly.JavaScript['string_length'] = function (block) {
+            var value_string = Blockly.JavaScript.valueToCode(block, 'STRING', Blockly.JavaScript.ORDER_ATOMIC);
+            var code = value_string + '.length';
+            return [code, Blockly.JavaScript.ORDER_MEMBER];
+        };
+
+        // Xử lý khối cắt chuỗi
+        Blockly.JavaScript['string_slice'] = function (block) {
+            var value_string = Blockly.JavaScript.valueToCode(block, 'STRING', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_start = Blockly.JavaScript.valueToCode(block, 'START', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_end = Blockly.JavaScript.valueToCode(block, 'END', Blockly.JavaScript.ORDER_ATOMIC);
+            var code = value_string + '.slice(' + value_start + ', ' + value_end + ')';
+            return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
         };
 
 
