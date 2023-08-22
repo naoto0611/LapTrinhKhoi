@@ -20,9 +20,9 @@
         <div class="col-sm-12 col-md-5">
             <div class="container-fluid d-flex flex-column justify-content-end">
               <div class="container-fluid mb-5" id="question-container">
-                <textarea id="question-area"></textarea>
+                <textarea class="p-3" id="question-area"></textarea>
               </div>
-              <div class="container my-3 d-flex" id="option-button">
+              <div class="col-sm-12 container-fluid my-3 d-flex" id="option-button">
                 <button class="mx-2 px-3 rounded bg-light" onclick="runCode()">Run</button>
                 <button class="mx-2 px-3 rounded bg-light" onclick="importBlocks()">Import</button>
                 <button class="mx-2 px-3 rounded bg-light" onclick="exportBlocks()">Export</button>
@@ -36,10 +36,8 @@
         </div>
         
         <div class="col-sm-12 col-md-7">
-            <div class="container d-flex bg-light border border-dark" id="block-area-container">
-              <div id="BlocklyDiv-container">
-                <div id="blocklyDiv"></div>
-              </div>
+            <div id="BlocklyDiv-container">
+              <div id="blocklyDiv"></div>
             </div>
         </div>
     </div>

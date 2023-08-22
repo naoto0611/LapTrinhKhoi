@@ -24,3 +24,7 @@ function closeForm() {
 function chooseLevel() {
   location.replace("/level");
 }
+
+function startGame() {
+  location.replace("/block");
+}

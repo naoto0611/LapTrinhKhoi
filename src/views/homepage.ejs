@@ -9,91 +9,109 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- javascript -->
     <script src="/javascript/homePage.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <!-- Fullpage tab -->
-    <button class="tablink" onclick="openPage('Explore', this, '#C1B945')" id="defaultOpen">Explore</button>
-    <button class="tablink" onclick="openPage('LeaderBoard', this, '#C1B945')" id="Leader">Leaderboard</button>
-    <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
-    <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</button>
-    
+    <div class="container d-flex flex-row mt-3 justify-content-end h1 px-5 py-3" id="fullTab">
+      <button class="tablink" onclick="openPage('Explore', this, '#C1B945')" id="defaultOpen">Explore</button>
+      <button class="tablink" onclick="openPage('LeaderBoard', this, '#C1B945')" id="Leader">Leaderboard</button>
+      <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
+      <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</button>
+    </div>
+
     <div id="Explore" class="tabcontent">
-        <h2>Welcome to Kids Code Academy</h2>
-        <p>Unlock the World of Creativity and Problem-Solving through Fun Coding Blocks!
+        <h2 class="h2 fw-bold">Welcome to Kids Code Academy</h2>
+        <p class="h3">Unlock the World of Creativity and Problem-Solving through Fun Coding Blocks!
         At Kids Code Academy, we believe that learning to code is not only essential in today's technology-driven world but can also be an incredibly fun and creative journey for young minds. Our platform is specially designed to introduce programming concepts to children in a way that is engaging, interactive, and age-appropriate.
         With our colorful and intuitive coding blocks, kids can easily grasp the fundamentals of coding and develop their logical thinking skills. Whether they're building their first simple games, designing interactive stories, or creating animated characters, our platform empowers young learners to express their ideas and turn them into reality.</p>
-        <button id="StartNow" onclick="chooseLevel()">Start now</button>
+        <button id="StartNow" class="h3 fw-bold mt-3 py-2 px-4" onclick="chooseLevel()">Start now</button>
     </div>
       
     <div id="LeaderBoard" class="tabcontent">
-        <h2 id="Ranking">Ranking</h2>
+        <h2 id="Ranking" class="text-center h2 fw-bold">Ranking</h2>
         <p></p> 
     </div>
       
     <div id="AboutUs" class="tabcontent">
-        <h3>Our team</h3>
-        <p id="AboutUs_Comment">We hope that our product can inspire the programming spirit to kids.</p>
-        <div class="row">
-            <div class="column">
-              <div class="card">
-                <img src="/images/NguyenMinhTri.png" alt="Nguyen Minh Tri" style="width:100%">
-                <div class="container">
-                  <h2>Tri Nguyen</h2>
-                  <p class="title">Fullstack Developer</p>
-                  <p>519H0243@student.tdtu.edu.vn</p>
-                  <p><button class="profileButton">Contact</button></p>
-                </div>
+        <h2 class="text-center h2 fw-bold">Our team</h2>
+        <p class="text-center h4">We hope that our product can inspire the programming spirit to kids.</p>
+        <div class="row justify-content-start">
+          <div class="col-3 mt-2" id="tri-profile">
+            <div class="card">
+              <img src="/images/NguyenMinhTri.png" alt="Nguyen Minh Tri"/>
+              <div class="container">
+                <h2 class="text-center"><b>Tri Nguyen</b></h2>
+                <p class="h3">Fullstack Developer</p>
+                <p class="h3">519H0243@student.tdtu.edu.vn</p>
+                <p><button class="container w-100 bg-dark mt-2 text-white">Contact</button></p>
               </div>
             </div>
-          
-            <div class="column">
-              <div class="card">
-                <img src="/images/TruongTuanNhan.png" alt="Truong Tuan Nhan" style="width:100%">
-                <div class="container">
-                  <h2>Nhan Truong</h2>
-                  <p class="title">Fullstack Developer</p>
-                  <p>519H0208@student.tdtu.edu.vn</p>
-                  <p><button class="profileButton">Contact</button></p>
-                </div>
+          </div>
+        
+          <div class="col-3 mt-2" id="nhan-profile">
+            <div class="card">
+              <img src="/images/TruongTuanNhan.png" alt="Truong Tuan Nhan"/>
+              <div class="container">
+                <h2 class="text-center"><b>Nhan Truong</b></h2>
+                <p class="h3">Fullstack Developer</p>
+                <p class="h3">519H0208@student.tdtu.edu.vn</p>
+                <p><button class="container w-100 bg-dark mt-2 text-white">Contact</button></p>
               </div>
             </div>
-        </div>
+          </div>
+      </div>
     </div>
       
     <div id="SignIn" class="tabcontent">
-      <h2>SIGN IN</h2>
-      <p>Welcome back!</p>
-      <form action="" id="login-form">
-        <label for="Username">Username</label>
-        <input type="text" id="Username" name="Username" value="" required>
-        <label for="Password">Password:</label>
-        <input type="text" id="Password" name="Password" value="" required>
-        <input type="submit" id="Submit" value="Sign in">
+      <h2 class="text-center h2 fw-bold">SIGN IN</h2>
+      <p class="text-center h4">Welcome back!</p>
+      <form action="" class="container d-flex flex-column" id="sign-in-form">
+        <div class="mb-3">
+          <label for="Username" class="form-label" id="Username">Username</label>
+          <input type="text" placeholder="" name="Username" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+          <label for="Password" class="form-label" id="Password">Password</label>
+          <input type="password" placeholder="" name="Password" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="w-100 py-2 fw-bold h4" id="signIn-button">Sign in</button>
+        </div>
       </form>
-      <div id="sign-up">Don't have an account? <button class="pop-up" onclick="openForm()"><a>Sign up now</a></button></div> 
+      <div class="text-center h5" id="sign-up-pop-up-div">Don't have an account? <button id="sign-up-pop-up" onclick="openForm()"><a>Sign up now</a></button></div> 
     
-    <!-- Popup Sign-up form -->
-    <div class="sign-up-form" id="sign-up-form">
-      <form action="" class="form-container">
-        <h1>SIGN UP</h1>
-        <div>Create your account now</div>
-    
-        <label for="Fullname">Full name</label>
-        <input type="text" placeholder="" name="Fullname" required>
+      <!-- Popup Sign-up form -->
+      <div class="sign-up-form" id="sign-up-form">
+        <form action="" class="container d-flex flex-column bg-light shadow-lg rounded">
+          <h1 class="text-center fw-bold pt-4">SIGN UP</h1>
+          <div class="text-center h4">Create your account now</div>
+          
+          <div class="mb-3">
+            <label for="Fullname" class="form-label">Full name</label>
+            <input type="text" id="p-fullName" class="form-control" placeholder="" name="Fullname" required/>
+          </div>
+          
+          <div class="mb-3">
+            <label for="dob" class="form-label">Date of birth</label>
+            <input type="date" id="p-dob" class="form-control" required/>
+          </div>
 
-        <label for="dob">Date of birth</label>
-        <input type="date" required>
+          <div class="mb-3">
+            <label for="Username" class="form-label">Username</label>
+            <input type="text" id="p-userName" class="form-control" placeholder="" name="Username" required/>
+          </div>
 
-        <label for="Username">Username</label>
-        <input type="text" placeholder="" name="Username" required>
-    
-        <label for="psw"><b>Create a password</b></label>
-        <input type="password" placeholder="" name="password" required>
-    
-        <button type="submit" class="btn">Sign up</button>
-        <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
-      </form>
-    </div>
+          <div class="mb-3">
+            <label for="psw" class="form-label"><b>Create a password</b></label>
+            <input type="password" id="p-password" class="form-control" placeholder="" name="password" required/>
+          </div>
+
+          <button type="submit" class="bg-warning m-2 h5 fw-bold py-2 shadow" id="p-signUp">Sign up</button>
+          <button type="button" class="bg-danger m-2 h5 fw-bold py-2 shadow" id="p-close" onclick="closeForm()">Close</button>
+        </form>
+      </div>
     </div>
     </div>  
     <!-- Set default for 1st page -->

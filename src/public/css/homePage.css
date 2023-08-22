@@ -2,13 +2,41 @@
   box-sizing: inherit;
 }
 
-html {
+body {
     background-image: url("../images/homePage.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  #fullTab {
+    background-color: none;
+    width: 100vw;
+  }
+  
+  .tabcontent {
+    display: none;
+  }
+
+  .tablink {
+    background-color: none;
+    color: black;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 8px 8px;
+    margin-left: 5%;
+    width: 20%;
+    font-family: SchoolBell;
+    text-decoration: none;
+    border-radius: 30px;
+  }
+  
+  .tablink:hover {
+    background-color: #C1B945;
   }
 
 @font-face {
@@ -16,247 +44,66 @@ html {
   src: url(./Schoolbell.ttf);
 }
 
-body {
+#Explore {
+  margin-left: 20%;
+  margin-top: 3%;
+  width: 55vw;
   font-family: SchoolBell;
-}
-
-h2{
-  margin-top: 7%;
-  margin-left: 15%;
-  font-size: 42px;
-}
-
-/* Explore */
-#Explore p{
-  margin: 15px 15%;
-  font-size: 24px;
-}
-
-#Explore {background-color: none;}
-#LeaderBoard {background-color: none;}
-#AboutUs {background-color: none;}
-#SignIn {background-color: none;}
-
-.tablink {
-  background-color: none;
-  color: black;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 8px 8px;
-  margin-top: 2%;
-  margin-left: 5%;
-  width: 10%;
-  font-family: SchoolBell;
-  text-decoration: none;
-  font-size: 36px;
-  border-radius: 30px;
-}
-
-.tablink:hover {
-  background-color: #C1B945;
-}
-
-.tabcontent {
-  color: black;
-  display: none;
-  padding: 100px 20px;
-  height: 100%;
-}
-
-button {
-  background: none;
 }
 
 #StartNow {
   background-color: #F0BF1C;
   border-radius: 30px;
-  margin-left: 15%;
-  padding: 8px 15px;
-  text-decoration: none;
-  font-size: 36px;
-  border-style: none;
-  font-family: SchoolBell;
-  margin-top: 2%;
-  cursor: pointer;
-}
-
-#defaultOpen {
-  margin-left: 30%;
+  border: none;
 }
 
 #active {
   background-color: #5fc8a3;
-  width: 10%;
 }
 
-/* Leaderboard */
-#Leader {
-  width: 13%;
-}
-
-#Ranking {
+#LeaderBoard {
+  font-family: SchoolBell;
   margin-top: 3%;
-  margin-left: 47%;
 }
 
-/* About Us */
-#AboutUs h3{
-  margin-left: 47%;
-  margin-bottom: 0%;
-  font-size: 40px;
+#AboutUs {
+  font-family: SchoolBell;
+  margin-top: 3%;
 }
 
-#AboutUs_Comment {
-  margin-left: 30%;
-  margin-top: 0px;
-  font-size: 24px;
-}
-
-.column {
-  float: left;
-  width: 20%;
+#tri-profile {
   margin-left: 20%;
-  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 10%;
+  font-family: 'Times New Roman', Times, serif;
 }
 
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 0px;
+#nhan-profile {
+  font-family: 'Times New Roman', Times, serif;
 }
 
-.card img{
-  height: 450px;
+#SignIn {
+  font-family: SchoolBell;
+  margin-top: 3%;
 }
 
-.container h2{
-  font-size: 35px;
-  margin: 5px;
-  text-align: center;
-}
-
-.container p{
-  padding-left: 5px;
-  margin-left: 10%;
-  font-size: 20px;
-}
-
-.container::after, .row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.title {
-  color: grey;
-}
-
-.profileButton {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 2% 20%;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 50%;
-  font-size: 20px;
-}
-
-.profileButton:hover {
-  background-color: #555;
-}
-
-@media screen and (max-width: 650px) {
-  .column {
-    width: 100%;
-    display: block;
-  }
-}
-
-/* Sign in */
-#SignIn h2, #SignIn p {
-  text-align: center;
+#sign-in-form {
   width: 20%;
-  margin-left: 40%;
 }
 
-#SignIn h2 {
-  margin-top: 7%;
-  margin-bottom: 0%;
-  font-size: 48px;
-}
-
-#SignIn p {
-  margin-top: 0;
-  font-size: 32px;
-}
-
-form, input, label {
-  margin-top: 1%;
-  margin-left: 33%;
-  width: 20%;
-  display: block;
-}
-
-input[type=text] {
-  padding:10px;
-  border:0;
-  box-shadow:0px 2px 4px 2px rgb(127, 121, 121);
-}
-
-#login-form label {
-  font-size: 28px;
-  font-weight: 400;
-  margin-left: 32%;
-}
-
-#Username, #Password, #sign-up {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 6%;
-  border-radius: 10px;
-  font-size: 25px;
-}
-
-#Submit {
-  margin-top: 10%;
-  width: 103%;
+#signIn-button {
   border-radius: 30px;
-  height: 40px;
   background-color: #F0BF1C;
   border: none;
-  font-size: 28px;
-  font-family: SchoolBell;
-  padding: 5px;
-  font-weight: 600;
-  cursor: pointer;
 }
 
-#sign-up {
-  margin-left: 40%;
-  margin-top: 1%;
-}
-
-#sign-up a{
-  color: #D80A0A;
-  font-weight: 600;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-/* Popup Sign-up form */
-.pop-up {
-  padding: 0;
+#sign-up-pop-up {
   border: none;
-  background: none;
-  font-size: 25px;
-  font-family: SchoolBell;
+  color: #D80A0A;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
-.sign-up-form {
+#sign-up-form {
   display: none;
   position: absolute;
   top: 10%;
@@ -266,69 +113,14 @@ input[type=text] {
   height: 80%;
 }
 
-.sign-up-form  .form-container {
-  float: left;
-  margin: 5% 5% 5% 5%;
-  background-color: white;
-  width: 90%;
-  height: 90%;
-  box-shadow: 5px 5px 5px 5px rgb(110, 100, 100);
-  border-radius: 5px;
+#sign-up-form form {
+  margin-top: 10%;
+  width: 20vw;
+  height: 60vh;
 }
 
-.form-container h1 {
-  text-align: center;
-  font-size: 48px;
-  font-weight: 600;
-  margin-bottom: 0;
-}
-
-.form-container div {
-  margin-top: 0;
-  text-align: center;
-  font-size: 25px;
-  font-weight: 300;
-}
-
-.form-container input, label {
-  margin-top: 1%;
-  margin-left: 20%;
-  width: 60%;
-  display: block;
-}
-
-.form-container input[type=text], .form-container input[type=password], .form-container input[type=date] {
-  padding:10px;
-  border:0;
-  box-shadow:0px 2px 4px 2px rgb(127, 121, 121);
-  border-radius: 5px;
-  font-size: 25px;
-}
-
-.form-container label {
-  margin-top: 3%;
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.form-container .btn, .form-container .btn-cancel {
-  font-size: 25px;
-  font-family: SchoolBell;
+#p-signUp, #p-close {
   border-radius: 30px;
-  margin-top: 5%;
-  width: 20%;
-  padding: 2px;
-  cursor: pointer;
   border: none;
-  font-size: 600;
 }
 
-.form-container .btn {
-  background-color: #F0BF1C;
-  margin-left: 25%;
-  margin-right: 10%;
-}
-
-.form-container .btn-cancel {
-  background-color: #c30606;
-}
