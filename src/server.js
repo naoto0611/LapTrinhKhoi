@@ -35,8 +35,16 @@ app.get('/block', (req, res) => {
   res.render('index.ejs');
 });
 
-app.get('/olala', (req, res) => {
-  res.render('olala.ejs');
+app.get('/level/easy', (req, res) => {
+  res.render('easyLevel.ejs');
+});
+
+app.get('/level/medium', (req, res) => {
+  res.render('mediumLevel.ejs');
+});
+
+app.get('/level/hard', (req, res) => {
+  res.render('hardLevel.ejs');
 });
 
 app.listen(port, () => {
