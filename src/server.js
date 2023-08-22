@@ -20,11 +20,24 @@ app.use(express.urlencoded());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
   res.render('homepage.ejs')
 })
 
-app.use(express.static('public')); // Serve static files from the 'public' directory
+app.get('/level', (req, res) => {
+  res.render('chooseLevel.ejs');
+});
+
+app.get('/block', (req, res) => {
+  res.render('index.ejs');
+});
+
+app.get('/olala', (req, res) => {
+  res.render('olala.ejs');
+});
 
 app.listen(port, () => {
   console.log(`port: ${port}`)

@@ -1,0 +1,89 @@
+*, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+html {
+    background-image: url("../images/homePage.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+@font-face {
+    font-family: SchoolBell;
+    src: url(./Schoolbell.ttf);
+  }
+
+h2 {
+    text-align: center;
+    color: black;
+    font-family: SchoolBell;
+    font-size: 48px;
+    margin-top: 7%;
+}
+
+button {
+    margin-left: 39.7%;
+    margin-top: 2%;
+    text-align: center;
+    font-family: SchoolBell;
+    padding: 5px;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.level button {
+    display: block;
+    margin-top: 1%;
+    border-radius: 20px;
+    width: 20%;
+}
+
+#start_button {
+    border: none;
+    background-color: #F0BF1C;
+    border-radius: 50px;
+    width: 20.4%;
+}
+
+.level button {
+    border: 2px solid;
+    display: inline-block;
+    font-weight: 60;
+    font-size: 35px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#easy {
+    box-shadow: #18CC14 4px 4px 0 0;
+}
+
+#easy:hover {
+    background-color: #68FE89;
+}
+
+#medium {
+    box-shadow: #EDFD35 4px 4px 0 0;
+}
+
+#medium:hover {
+    background-color: #FFE489;
+}
+
+#hard {
+    box-shadow: #D80A0A 4px 4px 0 0;
+}
+
+#hard:hover {
+    background-color: #F97171;
+}
+/* <button class="button-74" role="button">Button 74</button> */
+
+/* CSS */

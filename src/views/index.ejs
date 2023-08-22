@@ -2,16 +2,48 @@
 <html>
 
 <head>
-    <title>Blockly Calculator</title>
+    <title>Kids Code Academy</title>
+    <link rel="stylesheet" href="/css/index.css" type="text/css"/>
+    
+    <script src="javascript_compressed.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/blockly"></script>
     <script src="https://unpkg.com/blockly/python_compressed"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
 <body>
-    <h1>Blockly Calculator</h1>
-    <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
+    <div class="container-fluid d-flex flex-row" id="block-page">
+        <div class="col-sm-12 col-md-5">
+            <div class="container-fluid d-flex flex-column justify-content-end">
+              <div class="container-fluid mb-5" id="question-container">
+                <textarea id="question-area"></textarea>
+              </div>
+              <div class="container my-3 d-flex" id="option-button">
+                <button class="mx-2 px-3 rounded bg-light" onclick="runCode()">Run</button>
+                <button class="mx-2 px-3 rounded bg-light" onclick="importBlocks()">Import</button>
+                <button class="mx-2 px-3 rounded bg-light" onclick="exportBlocks()">Export</button>
+                <input type="file" id="importInput" className="m-0 px-3"/>
+              </div>
+              <div class="container-fluid mb-5" id="run-area-container">
+                <textarea class="p-3" id="run-area"></textarea>
+                <p class="m-2" id="result">Result:</p>
+              </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-12 col-md-7">
+            <div class="container d-flex bg-light border border-dark" id="block-area-container">
+              <div id="BlocklyDiv-container">
+                <div id="blocklyDiv"></div>
+              </div>
+            </div>
+        </div>
+    </div>
+
     <xml id="toolbox" style="display: none">
         <!-- Category "Khối nhập" (Blocks for Input) -->
         <category name="Input" colour="#5b80a5">
@@ -117,15 +149,9 @@
 
 
     </xml>
-    <button onclick="runCode()">Run</button>
-    <button onclick="exportBlocks()">Export</button>
-    <input type="file" id="importInput">
-    <button onclick="importBlocks()">Import</button>
-    <p id="result">Result:</p>
-    <div id="codeEditor">
-        <textarea id="codeInput" rows="10" cols="50"></textarea>
-    </div>
 
+    
+        
     <script>
         var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
         // String input
@@ -611,7 +637,7 @@
         function updateCode() {
             // Generate Blockly code and display it in the textarea
             var code = Blockly.JavaScript.workspaceToCode(workspace);
-            document.getElementById('codeInput').value = code;
+            document.getElementById('run-area').value = code;
         }
 
         // Add an event listener to workspace to update the code whenever blocks change

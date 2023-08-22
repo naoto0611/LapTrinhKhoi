@@ -14,11 +14,13 @@
     "blockly": "1.0.0",
     "node-blockly": "1.0.35",
     "ejs": "^3.1.9",
-    "react": "16.8.3",
-    "react-blockly-component": "3.2.0",
-    "react-blockly-drawer": "1.6.6",
-    "react-dom": "16.8.3",
-    "react-scripts": "2.0.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.21"
@@ -38,6 +40,12 @@
     "url": "https://github.com/naoto0611/LapTrinhKhoi/issues"
   },
   "homepage": "https://github.com/naoto0611/LapTrinhKhoi#readme",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
