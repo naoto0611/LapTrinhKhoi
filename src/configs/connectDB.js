@@ -5,7 +5,7 @@ const key = process.env.DB_CONNECT_KEY;
 const app = express();
 //Create Database connection
 const pgp = pgPromise({/* Initialization Options */ });
-const db = pgp('postgres://postgres:1@localhost:5432/nhanWebsite');
+const db = pgp('postgres://postgres:1@localhost:5432/Block');
 
 // Test connection
 (async () => {
@@ -19,7 +19,13 @@ const db = pgp('postgres://postgres:1@localhost:5432/nhanWebsite');
         });
 })
 
-
-
+    // db.query(`select * from users`, (err, res)=>{
+    //     if(!err) {
+    //         console.log(res.rows);
+    //     } else {
+    //         console.log(err.message);
+    //     }
+    //     db.end;
+    // })
 
 export default db;

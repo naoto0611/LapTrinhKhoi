@@ -1,9 +1,10 @@
 // import libraries and modules
-const express = require('express');
-const configViewEngine = require('./configs/viewEngine.js');
-const dotenv = require('dotenv');
-
+import express from 'express';
+import configViewEngine from './configs/viewEngine.js';
+import initWebRoute from './routes/web.js'
+import * as dotenv from 'dotenv';
 dotenv.config();
+
 //Creating express server
 const app = express();
 
@@ -12,6 +13,9 @@ const port = process.env.PORT;
 
 //setup view engine
 configViewEngine(app);
+
+//init web route
+initWebRoute(app);
 
 // middleware
 app.use(express.json());

@@ -1,4 +1,5 @@
 
+// full page tabs
 function openPage(pageName,element,color) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -13,6 +14,7 @@ function openPage(pageName,element,color) {
   element.style.backgroundColor = color;
 }
 
+// pop-up form
 function openForm() {
   document.getElementById("sign-up-form").style.display = "block";
 }
@@ -21,10 +23,29 @@ function closeForm() {
   document.getElementById("sign-up-form").style.display = "none";
 }
 
+//choose level 
 function chooseLevel() {
   location.replace("/level");
 }
 
+//direct to block game
 function startGame() {
   location.replace("/block");
+}
+
+//ranking tabs
+function openRankingTabs(levelRanking, element, color) {
+  var i;
+  var x = document.getElementsByClassName("level-ranking");
+  
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablevel");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+
+  document.getElementById(levelRanking).style.display = "block";
+  element.style.backgroundColor = color;
 }

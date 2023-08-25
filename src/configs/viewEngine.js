@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 const configViewEngine = (app) => {
     // static file
@@ -6,4 +6,4 @@ const configViewEngine = (app) => {
     app.set("view engine", "ejs");
     app.set("views", "./src/views")
 }
-module.exports = configViewEngine;
+export default configViewEngine;

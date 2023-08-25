@@ -11,7 +11,7 @@ body {
     width: 100vw;
   }
 
-  #fullTab {
+  #fullTab, #level-fullTab {
     background-color: none;
     width: 100vw;
   }
@@ -20,7 +20,7 @@ body {
     display: none;
   }
 
-  .tablink {
+  .tablink, .tabLevel {
     background-color: none;
     color: black;
     float: left;
@@ -124,3 +124,21 @@ body {
   border: none;
 }
 
+/* Leaderboard */
+#easy-ranking-table, #medium-ranking-table, #hard-ranking-table {
+  width: 30vw;
+  margin-left: 35vw;
+}
+
+.level-ranking {
+  width: 100vw;
+  display: none;
+}
+
+#level-fullTab button{
+  border-radius: 10px;
+  border: none;
+  margin: 0 0.5vw;
+  padding: 0 2%;
+  box-shadow:  4px 4px 0 #2e2d2b;
+}

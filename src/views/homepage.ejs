@@ -20,7 +20,7 @@
       <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
       <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</button>
     </div>
-
+    <!-- Explore tab -->
     <div id="Explore" class="tabcontent">
         <h2 class="h2 fw-bold">Welcome to Kids Code Academy</h2>
         <p class="h3">Unlock the World of Creativity and Problem-Solving through Fun Coding Blocks!
@@ -28,12 +28,102 @@
         With our colorful and intuitive coding blocks, kids can easily grasp the fundamentals of coding and develop their logical thinking skills. Whether they're building their first simple games, designing interactive stories, or creating animated characters, our platform empowers young learners to express their ideas and turn them into reality.</p>
         <button id="StartNow" class="h3 fw-bold mt-3 py-2 px-4" onclick="chooseLevel()">Start now</button>
     </div>
-      
+    <!-- Leaderboard tab -->
     <div id="LeaderBoard" class="tabcontent">
         <h2 id="Ranking" class="text-center h2 fw-bold">Ranking</h2>
-        <p></p> 
+        
+        <!-- Level tabs -->
+        <div class="container d-flex flex-row mt-3 justify-content-center h1 px-5 py-3" id="level-fullTab">
+          <button class="tablevel" onclick="openRankingTabs('easy-ranking-table', this, '#68FE89')" id="defaultOpen1">Easy</button>
+          <button class="tablevel" onclick="openRankingTabs('medium-ranking-table', this, '#FFE489')">Medium</button>
+          <button class="tablevel" onclick="openRankingTabs('hard-ranking-table', this, '#F97171')">Hard</button>
+        </div>
+        
+        <!-- Easy level -->
+        <!-- <h3 class="text-center h1 text-success fw-bold mt-5">EASY LEVEL</h3> -->
+        
+        <div class="level-ranking" id="easy-ranking-table">
+          <table class="table">
+          <thead class="h3">
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">ID</th>
+                  <th scope="col" style="text-align: center;">Score</th>
+              </tr>
+          </thead>
+          <tbody class="h3">
+              <% for(let i=0;i<easyRankingData.length;i++){%>
+                  <tr>
+                      <th scope="row"><%=i+1%></th>
+                      <td>
+                          <%=easyRankingData[i].username%>
+                      </td>
+                      <td style="text-align: center;">
+                          <%=easyRankingData[i].result_point%>
+                      </td>
+                  </tr>
+                  <%}%>
+          </tbody>
+          </table>
+        </div>
+
+        <!-- Medium level -->
+        <!-- <h3 class="text-center h1 text-success fw-bold mt-5">MEDIUM LEVEL</h3> -->
+        
+        <div class="level-ranking" id="medium-ranking-table">
+          <table class="table">
+          <thead class="h3">
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">ID</th>
+                  <th scope="col" style="text-align: center;">Score</th>
+              </tr>
+          </thead>
+          <tbody class="h3">
+              <% for(let i=0;i<mediumRankingData.length;i++){%>
+                  <tr>
+                      <th scope="row"><%=i+1%></th>
+                      <td>
+                          <%=mediumRankingData[i].username%>
+                      </td>
+                      <td style="text-align: center;">
+                          <%=mediumRankingData[i].result_point%>
+                      </td>
+                  </tr>
+                  <%}%>
+          </tbody>
+          </table>
+        </div>
+
+        <!-- Hard level -->
+        <!-- <h3 class="text-center h1 text-success fw-bold mt-5">HARD LEVEL</h3> -->
+        
+        <div class="level-ranking" id="hard-ranking-table">
+          <table class="table">
+          <thead class="h3">
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">ID</th>
+                  <th scope="col" style="text-align: center;">Score</th>
+              </tr>
+          </thead>
+          <tbody class="h3">
+              <% for(let i=0;i<hardRankingData.length;i++){%>
+                  <tr>
+                      <th scope="row"><%=i+1%></th>
+                      <td>
+                          <%=hardRankingData[i].username%>
+                      </td>
+                      <td style="text-align: center;">
+                          <%=hardRankingData[i].result_point%>
+                      </td>
+                  </tr>
+                  <%}%>
+          </tbody>
+          </table>
+        </div>
     </div>
-      
+    <!-- About Us tab -->
     <div id="AboutUs" class="tabcontent">
         <h2 class="text-center h2 fw-bold">Our team</h2>
         <p class="text-center h4">We hope that our product can inspire the programming spirit to kids.</p>
@@ -63,7 +153,7 @@
           </div>
       </div>
     </div>
-      
+    <!-- Sign in tab -->
     <div id="SignIn" class="tabcontent">
       <h2 class="text-center h2 fw-bold">SIGN IN</h2>
       <p class="text-center h4">Welcome back!</p>
@@ -115,6 +205,9 @@
     </div>
     </div>  
     <!-- Set default for 1st page -->
-    <script>document.getElementById("defaultOpen").click();</script>
+    <script>
+      document.getElementById("defaultOpen").click();
+      document.getElementById("defaultOpen1").click();
+    </script>
 </body>
 </html>
