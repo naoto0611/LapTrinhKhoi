@@ -21,7 +21,7 @@
             <div class="container-fluid d-flex flex-column justify-content-end">
               <div class="container-fluid mb-5" id="question-container">
                 <textarea class="p-0" id="question-area">
-                    <% for(let i=0;i<easyQuestionsData.length){%>
+                    <% for(let i=0;i<easyQuestionsData.length;i++){%>
                         <%=easyQuestionsData[i].ex_question%>
                     <%}%>
                 </textarea>
@@ -643,6 +643,10 @@
             // Generate Blockly code and display it in the textarea
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             document.getElementById('run-area').value = code;
+        }
+
+        function nextQuestion() {
+            
         }
 
         // Add an event listener to workspace to update the code whenever blocks change
