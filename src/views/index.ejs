@@ -3,13 +3,13 @@
 
 <head>
     <title>Kids Code Academy</title>
-    <link rel="stylesheet" href="/css/index.css" type="text/css"/>
-    
+    <link rel="stylesheet" href="/css/index.css" type="text/css" />
+
     <script src="javascript_compressed.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/blockly"></script>
     <script src="https://unpkg.com/blockly/python_compressed"></script>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -19,34 +19,25 @@
     <div class="container-fluid d-flex flex-row" id="block-page">
         <div class="col-sm-12 col-md-5">
             <div class="container-fluid d-flex flex-column justify-content-end">
-              <div class="container-fluid mb-5" id="question-container">
-                <textarea class="p-0" id="question-area">
-                    <% for(let i=0;i<easyQuestionsData.length;i++){%>
-                        <%=easyQuestionsData[i].ex_question%>
-                    <%}%>
-                </textarea>
-              </div>
-              <div class="col-sm-12 container-fluid d-flex" id="question-button">
-                <button type="submit" class="mx-2 px-3 rounded bg-success" id="submit-answer">Submit</button>
-                <input type="text" placeholder="" name="answer" class="mx-2 px-3 rounded bg-light" required/>
-                <button class="mx-2 px-3 rounded bg-warning" onclick="nextQuestion()">Next</button>
-              </div>
-              <div class="col-sm-12 container-fluid mt-5 d-flex" id="option-button">
-                <button class="mx-2 px-3 rounded bg-light" onclick="runCode()">Run</button>
-                <button class="mx-2 px-3 rounded bg-light" onclick="exportBlocks()">Export</button>
-                <button class="mx-2 px-3 rounded bg-light" onclick="importBlocks()">Import</button>
-                <input type="file" id="importInput" className="m-0 px-3"/>
-              </div>
-              <div class="container-fluid mb-5" id="run-area-container">
-                <p class="mx-3 fw-bold h4" id="result">Result:</p>
-                <textarea class="p-3" id="run-area"></textarea>
-              </div>
+                <div class="container-fluid mb-5" id="question-container">
+                    <textarea class="p-3" id="question-area"></textarea>
+                </div>
+                <div class="col-sm-12 container-fluid my-3 d-flex" id="option-button">
+                    <button class="mx-2 px-3 rounded bg-light" onclick="runCode()">Run</button>
+                    <button class="mx-2 px-3 rounded bg-light" onclick="importAndLoadBlocks()">Import</button>
+
+                    <button class="mx-2 px-3 rounded bg-light" onclick="exportBlocks()">Export</button>
+                </div>
+                <div class="container-fluid mb-5" id="run-area-container">
+                    <textarea class="p-3" id="run-area"></textarea>
+                    <p class="m-2" id="result">Result:</p>
+                </div>
             </div>
         </div>
-        
+
         <div class="col-sm-12 col-md-7">
             <div id="BlocklyDiv-container">
-              <div id="blocklyDiv"></div>
+                <div id="blocklyDiv"></div>
             </div>
         </div>
     </div>
@@ -155,8 +146,8 @@
 
     </xml>
 
-    
-        
+
+
     <script>
         var workspace = Blockly.inject('blocklyDiv', { toolbox: document.getElementById('toolbox') });
         // String input
@@ -617,36 +608,57 @@
             document.body.removeChild(element);
         }
 
-        function importBlocks() {
-            var importInput = document.getElementById("importInput");
-            var file = importInput.files[0];
+        // function importBlocks() {
+        //     var importInput = document.getElementById("importInput");
+        //     var file = importInput.files[0];
 
-            if (file) {
+        //     if (file) {
+        //         var reader = new FileReader();
+        //         reader.onload = function (event) {
+        //             var xmlText = event.target.result;
+        //             var parser = new DOMParser();
+        //             var xml = parser.parseFromString(xmlText, "text/xml");
+
+        //             if (xml.getElementsByTagName('xml').length > 0) {
+        //                 xml = xml.getElementsByTagName('xml')[0];
+        //                 Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+        //             } else {
+        //                 alert("Tệp dữ liệu không hợp lệ.");
+        //             }
+        //         };
+        //         reader.readAsText(file);
+        //     }
+        // }
+
+        function importAndLoadBlocks() {
+            var importInput = document.createElement('input');
+            importInput.type = 'file';
+            importInput.accept = '.xml'; // Accept file .xml only
+            importInput.addEventListener('change', function (event) {
+                var file = event.target.files[0];
                 var reader = new FileReader();
                 reader.onload = function (event) {
                     var xmlText = event.target.result;
                     var parser = new DOMParser();
-                    var xml = parser.parseFromString(xmlText, "text/xml");
+                    var xml = parser.parseFromString(xmlText, 'text/xml');
 
                     if (xml.getElementsByTagName('xml').length > 0) {
                         xml = xml.getElementsByTagName('xml')[0];
                         Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
                     } else {
-                        alert("Tệp dữ liệu không hợp lệ.");
+                        alert('Invalid data file.');
                     }
                 };
                 reader.readAsText(file);
-            }
+            });
+            importInput.click();
         }
+
 
         function updateCode() {
             // Generate Blockly code and display it in the textarea
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             document.getElementById('run-area').value = code;
-        }
-
-        function nextQuestion() {
-            
         }
 
         // Add an event listener to workspace to update the code whenever blocks change
