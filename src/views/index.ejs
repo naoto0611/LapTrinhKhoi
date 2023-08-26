@@ -20,17 +20,26 @@
         <div class="col-sm-12 col-md-5">
             <div class="container-fluid d-flex flex-column justify-content-end">
               <div class="container-fluid mb-5" id="question-container">
-                <textarea class="p-3" id="question-area"></textarea>
+                <textarea class="p-0" id="question-area">
+                    <% for(let i=0;i<easyQuestionsData.length){%>
+                        <%=easyQuestionsData[i].ex_question%>
+                    <%}%>
+                </textarea>
               </div>
-              <div class="col-sm-12 container-fluid my-3 d-flex" id="option-button">
+              <div class="col-sm-12 container-fluid d-flex" id="question-button">
+                <button type="submit" class="mx-2 px-3 rounded bg-success" id="submit-answer">Submit</button>
+                <input type="text" placeholder="" name="answer" class="mx-2 px-3 rounded bg-light" required/>
+                <button class="mx-2 px-3 rounded bg-warning" onclick="nextQuestion()">Next</button>
+              </div>
+              <div class="col-sm-12 container-fluid mt-5 d-flex" id="option-button">
                 <button class="mx-2 px-3 rounded bg-light" onclick="runCode()">Run</button>
-                <button class="mx-2 px-3 rounded bg-light" onclick="importBlocks()">Import</button>
                 <button class="mx-2 px-3 rounded bg-light" onclick="exportBlocks()">Export</button>
+                <button class="mx-2 px-3 rounded bg-light" onclick="importBlocks()">Import</button>
                 <input type="file" id="importInput" className="m-0 px-3"/>
               </div>
               <div class="container-fluid mb-5" id="run-area-container">
+                <p class="mx-3 fw-bold h4" id="result">Result:</p>
                 <textarea class="p-3" id="run-area"></textarea>
-                <p class="m-2" id="result">Result:</p>
               </div>
             </div>
         </div>

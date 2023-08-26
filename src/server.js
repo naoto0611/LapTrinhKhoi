@@ -4,6 +4,8 @@ import configViewEngine from './configs/viewEngine.js';
 import initWebRoute from './routes/web.js'
 import * as dotenv from 'dotenv';
 dotenv.config();
+import bcrypt, { hash } from "bcrypt";
+import * as jwt from "jsonwebtoken";
 
 //Creating express server
 const app = express();
@@ -54,3 +56,49 @@ app.get('/level/hard', (req, res) => {
 app.listen(port, () => {
   console.log(`port: ${port}`)
 })
+
+
+const users =[]
+
+app.get('/users', (req, res) => {
+  res.json(users)
+})
+
+app.post('/users', async (req, res) => {
+  try {
+    // hash the password with bcrypt
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    const user = {
+      name: req.body.name,
+      password: hashedPassword
+    }
+    users.push(user);
+    res.status(201).send();
+    
+    console.log('salt', salt);
+    console.log('hashed password', hashedPassword);
+  } catch {
+    res.status(500).send();
+  }
+})
+
+app.post('/users/login', async (req, res) => {
+  const user = users.find(user => user.name = req.body.name);
+  if (user == null) {
+    return res.status(400).send('User not found');
+  }
+  try {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      res.send('Success');
+    } else {
+      res.send('You are not allowed');
+    }
+  } catch {
+    res.status(500).send();
+  }
+})
+
+const randomStr = () => require('crypto').randomBytes(64).toString('hex');
+console.log('token', randomStr);

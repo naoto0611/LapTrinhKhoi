@@ -30,7 +30,12 @@ class homeController {
         return res.render('homepage.ejs', { easyRankingData: easy, mediumRankingData: medium, hardRankingData: hard })
     }
 
-    
+    static getQuestionData = async (req, res) => {
+        const easyQuestions = await db.query(
+            `SELECT * FROM public.exercises`
+        );
+        return res.render('index.ejs', { easyQuestionsData: easyQuestions });
+    }
 
 }
 

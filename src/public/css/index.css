@@ -47,7 +47,7 @@
     box-shadow:  8px 8px 0 #e4c16a;
 }
 
-#option-button {
+#option-button, #question-button {
     margin-left: 30%;
 }
 
@@ -64,4 +64,6 @@
     box-shadow:  8px 8px 0 #e4c16a;
 }
 
-
+#question-button {
+    
+}
