@@ -20,17 +20,42 @@
         <div class="col-sm-12 col-md-5">
             <div class="container-fluid d-flex flex-column justify-content-end">
                 <div class="container-fluid mb-5" id="question-container">
-                    <textarea class="p-3" id="question-area"></textarea>
+                    <textarea class="p-2" id="question-area">
+<% for(let i=0;i<hardQuestionsData.length;i++){%>
+<%=i+1%> <%=hardQuestionsData[i].ex_question%>
+<%}%>
+                    </textarea>
+                </div>
+                <div class="col-sm-12 container-fluid d-flex" id="question-button-1">
+                    <input type="text" placeholder="1" name="answer" class="answer" required/>
+                    <input type="text" placeholder="2" name="answer" class="answer" required/>
+                    <input type="text" placeholder="3" name="answer" class="answer" required/>
+                    <input type="text" placeholder="4" name="answer" class="answer" required/>
+                    <input type="text" placeholder="5" name="answer" class="answer" required/>
+                    <input type="text" placeholder="6" name="answer" class="answer" required/>
+                    <input type="text" placeholder="7" name="answer" class="answer" required/>
+                    <input type="text" placeholder="8" name="answer" class="answer" required/>
+                </div>
+                <div class="col-sm-12 mt-2 container-fluid d-flex" id="question-button-2">
+                    <input type="text" placeholder="9" name="answer" class="answer" required/>
+                    <input type="text" placeholder="10" name="answer" class="answer" required/>
+                    <input type="text" placeholder="11" name="answer" class="answer" required/>
+                    <input type="text" placeholder="12" name="answer" class="answer" required/>
+                    <input type="text" placeholder="13" name="answer" class="answer" required/>
+                    <input type="text" placeholder="14" name="answer" class="answer" required/>
+                    <input type="text" placeholder="15" name="answer" class="answer" required/>
+                </div>
+                <div class="col-sm-12 mt-2 container-fluid d-flex" id="question-button">
+                    <button type="submit" class="mx-5 px-3 rounded bg-success" id="submit-answer" onclick="getAnswer()">Submit</button>
                 </div>
                 <div class="col-sm-12 container-fluid my-3 d-flex" id="option-button">
                     <button class="mx-2 px-3 rounded bg-light" onclick="runCode()">Run</button>
                     <button class="mx-2 px-3 rounded bg-light" onclick="importAndLoadBlocks()">Import</button>
-
                     <button class="mx-2 px-3 rounded bg-light" onclick="exportBlocks()">Export</button>
+                    <p class="m-2 h4 fw-bold" id="result">Result:</p>
                 </div>
                 <div class="container-fluid mb-5" id="run-area-container">
                     <textarea class="p-3" id="run-area"></textarea>
-                    <p class="m-2" id="result">Result:</p>
                 </div>
             </div>
         </div>
@@ -40,6 +65,56 @@
                 <div id="blocklyDiv"></div>
             </div>
         </div>
+        <!-- Make textarea cannot be editted -->
+        <button id="UneditQuestion" onclick="makeQuestionAreaUneditable()" hidden></button>
+        <button id="UneditRun" onclick="makeRunAreaUneditable()" hidden></button>
+        
+        <!-- get answer from db -->
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[0].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[1].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[2].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[3].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[4].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[5].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[6].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[7].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[8].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[9].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[10].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[11].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[12].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[13].ex_answer%>
+        </textarea>
+        <textarea class="answer-from-db" hidden>
+            <%=hardQuestionsData[14].ex_answer%>
+        </textarea>
     </div>
 
     <xml id="toolbox" style="display: none">
@@ -664,9 +739,40 @@
         // Add an event listener to workspace to update the code whenever blocks change
         workspace.addChangeListener(updateCode);
 
+        // Only-read question area
+        function makeQuestionAreaUneditable() {
+            const textarea = document.getElementById("question-area");
+            textarea.disabled = true;
+        }
+        document.getElementById("UneditQuestion").click();
+        // Only-read run-code area
+        function makeRunAreaUneditable() {
+            const textarea = document.getElementById("run-area");
+            textarea.disabled = true;
+        }
+        document.getElementById("UneditRun").click();
 
-
-
+        // get the answer
+        function getAnswer() {
+            //let text = document.getElementsByClassName('answer-from-db').value;
+            //alert(document.getElementsByClassName('answer-from-db')[0].value.trim());
+            //alert(document.getElementsByClassName('answer')[0].value.trim());
+            
+            let result = 0;
+            for (let i=0; i<15; i++) {
+                //document.addEventListener('DOMContentLoaded', function() {
+                    // Your comparison code here
+                if (document.getElementsByClassName('answer-from-db')[i].value.trim() == document.getElementsByClassName('answer')[i].value.trim()) {
+                    result += 1;
+                }
+            }; 
+                
+            //result = result +1;
+            //}
+            alert(result + "/15 Points");
+            document.getElementById("submit-answer").disabled = true;
+            
+        }
     </script>
 </body>
 

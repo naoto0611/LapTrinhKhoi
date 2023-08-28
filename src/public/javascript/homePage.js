@@ -28,11 +28,6 @@ function chooseLevel() {
   location.replace("/level");
 }
 
-//direct to block game
-function startGame() {
-  location.replace("/block");
-}
-
 //ranking tabs
 function openRankingTabs(levelRanking, element, color) {
   var i;

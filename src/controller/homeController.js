@@ -30,13 +30,29 @@ class homeController {
         return res.render('homepage.ejs', { easyRankingData: easy, mediumRankingData: medium, hardRankingData: hard })
     }
 
-    static getQuestionData = async (req, res) => {
+    // get Questions data for easy level
+    static getEasyQuestionData = async (req, res) => {
         const easyQuestions = await db.query(
-            `SELECT * FROM public.exercises`
+            `select * from public.exercises where ex_level = 'easy'`
         );
-        return res.render('index.ejs', { easyQuestionsData: easyQuestions });
+        return res.render('indexEasy.ejs', { easyQuestionsData: easyQuestions });
     }
 
+    // get Questions data for medium level
+    static getMediumQuestionData = async (req, res) => {
+        const mediumQuestions = await db.query(
+            `select * from public.exercises where ex_level = 'medium'`
+        );
+        return res.render('indexMedium.ejs', { mediumQuestionsData: mediumQuestions });
+    }
+
+    // get Questions data for medium level
+    static getHardQuestionData = async (req, res) => {
+        const hardQuestions = await db.query(
+            `select * from public.exercises where ex_level = 'hard'`
+        );
+        return res.render('indexHard.ejs', { hardQuestionsData: hardQuestions });
+    }
 }
 
 export default homeController;
