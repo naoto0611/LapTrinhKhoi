@@ -33,7 +33,9 @@ class homeController {
     // get Questions data for easy level
     static getEasyQuestionData = async (req, res) => {
         const easyQuestions = await db.query(
-            `select * from public.exercises where ex_level = 'easy'`
+            `select * from public.exercises where ex_level = 'easy'
+            order by random()
+            limit 15`
         );
         return res.render('indexEasy.ejs', { easyQuestionsData: easyQuestions });
     }
@@ -41,7 +43,9 @@ class homeController {
     // get Questions data for medium level
     static getMediumQuestionData = async (req, res) => {
         const mediumQuestions = await db.query(
-            `select * from public.exercises where ex_level = 'medium'`
+            `select * from public.exercises where ex_level = 'medium'
+            order by random()
+            limit 15`
         );
         return res.render('indexMedium.ejs', { mediumQuestionsData: mediumQuestions });
     }
@@ -49,7 +53,9 @@ class homeController {
     // get Questions data for medium level
     static getHardQuestionData = async (req, res) => {
         const hardQuestions = await db.query(
-            `select * from public.exercises where ex_level = 'hard'`
+            `select * from public.exercises where ex_level = 'hard'
+            order by random()
+            limit 15`
         );
         return res.render('indexHard.ejs', { hardQuestionsData: hardQuestions });
     }

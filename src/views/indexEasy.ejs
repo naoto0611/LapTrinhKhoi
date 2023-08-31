@@ -763,7 +763,7 @@
             for (let i=0; i<15; i++) {
                 //document.addEventListener('DOMContentLoaded', function() {
                     // Your comparison code here
-                if (document.getElementsByClassName('answer-from-db')[i].value.trim() == document.getElementsByClassName('answer')[i].value.trim()) {
+                if (document.getElementsByClassName('answer-from-db')[i].value.trim() == document.getElementsByClassName('answer')[i].value.trim().toLowerCase()) {
                     result += 1;
                     document.getElementsByClassName('answer')[i].style.backgroundColor = "green";
                 } else {
