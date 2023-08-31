@@ -14,6 +14,14 @@ function moveBack() {
     location.replace("/level");
 }
 
-function startGame() {
-    location.replace("/block");
+function startGameE() {
+    location.replace("/easyBlock");
+}
+
+function startGameM() {
+    location.replace("/mediumBlock");
+}
+
+function startGameH() {
+    location.replace("/hardBlock");
 }

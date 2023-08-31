@@ -4,11 +4,10 @@ import configViewEngine from './configs/viewEngine.js';
 import initWebRoute from './routes/web.js'
 import * as dotenv from 'dotenv';
 dotenv.config();
+import db from './configs/connectDB.js';
 import bcrypt, { hash } from "bcrypt";
 import jwt from 'jsonwebtoken';
 import bodyParser from 'body-parser';
-import pgPromise from 'pg-promise';
-import db from "./configs/connectDB.js";
 
 
 //Creating express server
@@ -21,10 +20,6 @@ const api = express();
 const apiPort = process.env.API_PORT || 3123;
 
 //secret key in .env
-console.log("DB_HOST: ", process.env.DB_CONNECT_KEY)
-console.log("DB_USER: ", process.env.DB_USER)
-console.log("DB_PASSWORD: ", process.env.DB_PASSWORD)
-console.log("DB_JWT_SECRET: ", process.env.JWT_SECRET)
 const jwtSecret = process.env.JWT_SECRET;
 
 //---------------------------//
@@ -56,8 +51,16 @@ app.get('/level', (req, res) => {
   res.render('chooseLevel.ejs');
 });
 
-app.get('/block', (req, res) => {
-  res.render('index.ejs');
+app.get('easyBlock', (req, res) => {
+  res.render('indexEasy.ejs');
+});
+
+app.get('/mediumBlock', (req, res) => {
+  res.render('indexMedium.ejs');
+});
+
+app.get('/hardBlock', (req, res) => {
+  res.render('indexHard.ejs');
 });
 
 app.get('/level/easy', (req, res) => {
@@ -93,12 +96,14 @@ app.get('/level/hard', (req, res) => {
 //     users.push(user);
 //     res.status(201).send();
 
+    
 //     console.log('salt', salt);
 //     console.log('hashed password', hashedPassword);
 //   } catch {
 //     res.status(500).send();
 //   }
 // })
+
 
 // app.post('/users/login', async (req, res) => {
 //   const user = users.find(user => user.name = req.body.name);
@@ -132,7 +137,7 @@ app.post('/register', async (req, res) => {
       return res.json({ success: false, message: 'exist' });
     }
     const hashedPassword = bcrypt.hashSync(password, 10);
-    const result = await db.none('INSERT INTO users(fullname, dob, username, userpassword) VALUES($1, $2, $3, $4)', [fullName, dob, username, hashedPassword]);
+    const result = await db.none('INSERT INTO users(username, user_dob, accountname, userpassword) VALUES($1, $2, $3, $4)', [fullName, dob, username, hashedPassword]);
 
     res.json({ success: true, message: 'Registration successful' });
   } catch (error) {
@@ -145,7 +150,7 @@ app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    const user = await db.oneOrNone('SELECT * FROM users WHERE accountname = $1', [username]);
 
     if (user && bcrypt.compareSync(password, user.userpassword)) {
       const userId = user.userid; // Lấy ID người dùng từ cơ sở dữ liệu
@@ -176,6 +181,7 @@ function authenticateToken(req, res, next) {
     }
     req.user = user;
     next();
+
   });
 }
 
@@ -198,4 +204,5 @@ app.listen(webPort, () => {
 api.listen(apiPort, () => {
   console.log(`API Server is running on port ${apiPort}`);
 });
+
 
