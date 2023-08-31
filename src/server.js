@@ -5,14 +5,35 @@ import initWebRoute from './routes/web.js'
 import * as dotenv from 'dotenv';
 dotenv.config();
 import bcrypt, { hash } from "bcrypt";
-import * as jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
+import bodyParser from 'body-parser';
+import pgPromise from 'pg-promise';
+import db from "./configs/connectDB.js";
+
 
 //Creating express server
 const app = express();
+const webPort = process.env.WEB_PORT || 3020;
 
-//port in .env
-const port = process.env.PORT; 
 
+// Port for API
+const api = express();
+const apiPort = process.env.API_PORT || 3123;
+
+//secret key in .env
+console.log("DB_HOST: ", process.env.DB_CONNECT_KEY)
+console.log("DB_USER: ", process.env.DB_USER)
+console.log("DB_PASSWORD: ", process.env.DB_PASSWORD)
+console.log("DB_JWT_SECRET: ", process.env.JWT_SECRET)
+const jwtSecret = process.env.JWT_SECRET;
+
+//---------------------------//
+// Connect to db
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());
+
+//---------------------------//
 //setup view engine
 configViewEngine(app);
 
@@ -20,8 +41,6 @@ configViewEngine(app);
 initWebRoute(app);
 
 // middleware
-app.use(express.json());
-app.use(express.urlencoded());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -53,52 +72,130 @@ app.get('/level/hard', (req, res) => {
   res.render('hardLevel.ejs');
 });
 
-app.listen(port, () => {
-  console.log(`port: ${port}`)
-})
 
 
-const users =[]
+// const users =[]
 
-app.get('/users', (req, res) => {
-  res.json(users)
-})
+// app.get('/users', (req, res) => {
+//   res.json(users)
+// })
 
-app.post('/users', async (req, res) => {
+// app.post('/users', async (req, res) => {
+//   try {
+//     // hash the password with bcrypt
+//     const salt = await bcrypt.genSalt();
+//     const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+//     const user = {
+//       name: req.body.name,
+//       password: hashedPassword
+//     }
+//     users.push(user);
+//     res.status(201).send();
+
+//     console.log('salt', salt);
+//     console.log('hashed password', hashedPassword);
+//   } catch {
+//     res.status(500).send();
+//   }
+// })
+
+// app.post('/users/login', async (req, res) => {
+//   const user = users.find(user => user.name = req.body.name);
+//   if (user == null) {
+//     return res.status(400).send('User not found');
+//   }
+//   try {
+//     if (await bcrypt.compare(req.body.password, user.password)) {
+//       res.send('Success');
+//     } else {
+//       res.send('You are not allowed');
+//     }
+//   } catch {
+//     res.status(500).send();
+//   }
+// })
+
+//---------------------------------//
+
+api.get('/api/protected-resource', authenticateToken, (req, res) => {
+  res.json({ message: 'This is a protected resource', user: req.user });
+});
+
+
+// Sign up
+app.post('/register', async (req, res) => {
+  const { fullName, dob, username, password } = req.body;
   try {
-    // hash the password with bcrypt
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-    const user = {
-      name: req.body.name,
-      password: hashedPassword
+    const existingUser = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    if (existingUser) {
+      return res.json({ success: false, message: 'exist' });
     }
-    users.push(user);
-    res.status(201).send();
-    
-    console.log('salt', salt);
-    console.log('hashed password', hashedPassword);
-  } catch {
-    res.status(500).send();
-  }
-})
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const result = await db.none('INSERT INTO users(fullname, dob, username, userpassword) VALUES($1, $2, $3, $4)', [fullName, dob, username, hashedPassword]);
 
-app.post('/users/login', async (req, res) => {
-  const user = users.find(user => user.name = req.body.name);
-  if (user == null) {
-    return res.status(400).send('User not found');
+    res.json({ success: true, message: 'Registration successful' });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: 'Registration failed' });
   }
+});
+// Sign in
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
   try {
-    if (await bcrypt.compare(req.body.password, user.password)) {
-      res.send('Success');
+    const user = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+
+    if (user && bcrypt.compareSync(password, user.userpassword)) {
+      const userId = user.userid; // Lấy ID người dùng từ cơ sở dữ liệu
+      const token = jwt.sign({ userId }, jwtSecret, { expiresIn: '10h' });
+      res.json({ success: true, message: token });
     } else {
-      res.send('You are not allowed');
+      res.json({ success: false, message: 'Login failed' });
     }
-  } catch {
-    res.status(500).send();
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ success: false, message: 'An error occurred during login' });
   }
-})
+});
 
-const randomStr = () => require('crypto').randomBytes(64).toString('hex');
-console.log('token', randomStr);
+// Middlewate to authenticate
+function authenticateToken(req, res, next) {
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    console.log('No token provided');
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(token, jwtSecret, (err, user) => {
+    if (err) {
+      console.log('Token verification error:', err);
+      return res.sendStatus(403);
+    }
+    req.user = user;
+    next();
+  });
+}
+
+// Ví dụ sử dụng middleware authenticateToken
+api.get('/protected-resource', authenticateToken, (req, res) => {
+  res.json({ message: 'This is a protected resource', user: req.user });
+});
+
+
+//------------------------------------//
+// const randomStr = () => require('crypto').randomBytes(64).toString('hex');
+// console.log('token', randomStr);
+
+// Start the web server
+app.listen(webPort, () => {
+  console.log(`Web Server is running on port ${webPort}`);
+});
+
+// Start the API server
+api.listen(apiPort, () => {
+  console.log(`API Server is running on port ${apiPort}`);
+});
+
