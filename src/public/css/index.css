@@ -98,3 +98,31 @@
 #question-button{
     width: 20vw;
 }
+
+#pop-up-score {
+    background-color: #e4c16a;
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    z-index: 100;
+    border-radius: 20px;
+    color: black;
+    font-size: 100px;
+    display: none;
+}
+
+#close-pop-up {
+    font-size: 20px;
+    top: 0px;
+    right: 0px;
+    float: right;
+    margin: 0;
+}
+
+#pop-up-score button {
+    border: none;
+    background-color: #e4c16a;
+}
+

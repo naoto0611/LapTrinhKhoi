@@ -60,41 +60,39 @@ class homeController {
         return res.render('indexHard.ejs', { hardQuestionsData: hardQuestions });
     }
 
-    static getUserDetail = async (req, res) => {
-        let userId = req.params.id;
-        let user = await db.query(`select * from public.customer where cus_id = ${userId}`);
-        //console.log(JSON.stringify(user))
-        return res.send(JSON.stringify(user))
+    static getQuestionDetail = async (req, res) => {
+        let question = await db.query(`select * from public.exercises`);
+        return res.render('admin.ejs', { questionDetail: question });
     }
 
-    static editUser = async (req, res) => {
-        let id = req.params.id;
-        let user = await db.query(`Select * from public.customer where cus_id = ${id}`);
-        //console.log(JSON.stringify(user))
-        return res.render('update.ejs', { dataUser: user[0] });
+    // static editUser = async (req, res) => {
+    //     let id = req.params.id;
+    //     let user = await db.query(`Select * from public.customer where cus_id = ${id}`);
+    //     //console.log(JSON.stringify(user))
+    //     return res.render('update.ejs', { dataUser: user[0] });
 
+    // }
+
+    // static updateInfo = async (req, res) => {
+    //     let { name, address, phone, id } = req.body;
+    //     await db.query(`update public.customer 
+    //     set cus_name='${name}', cus_address='${address}', cus_phone = '${phone}' 
+    //     where cus_id = '${id}' `)
+    //     return res.redirect("/");
+    // }
+
+    static addQuestion = async (req, res) => {
+        let { question, answer, level } = req.body;
+        await db.query(`insert into public.exercises(ex_question,ex_answer,ex_level) 
+        values('${question}','${answer}','${level}')`)
+        return res.redirect('/admin');
     }
 
-    static updateInfo = async (req, res) => {
-        let { name, address, phone, id } = req.body;
-        await db.query(`update public.customer 
-        set cus_name='${name}', cus_address='${address}', cus_phone = '${phone}' 
-        where cus_id = '${id}' `)
-        return res.redirect("/");
-    }
-
-    static createNewUser = async (req, res) => {
-        let { name, address, phone } = req.body;
-        await db.query(`insert into public.customer(cus_name,cus_address,cus_phone) 
-        values('${name}','${address}','${phone}')`)
-        return res.redirect('/');
-    }
-
-    static deleteUser = async (req, res) => {
-        let id = req.body.delete_id;
-        await db.query(`delete from public.customer where cus_id='${id}'`);
-        return res.redirect("/");
-    }
+    // static deleteUser = async (req, res) => {
+    //     let id = req.body.delete_id;
+    //     await db.query(`delete from public.customer where cus_id='${id}'`);
+    //     return res.redirect("/");
+    // }
 }
 
 export default homeController;

@@ -9,6 +9,8 @@ const initWebRoute = (app) => {
     router.get('/easyBlock', homeController.getEasyQuestionData);
     router.get('/mediumBlock', homeController.getMediumQuestionData);
     router.get('/hardBlock', homeController.getHardQuestionData);
+    router.post('/add-new-question', homeController.addQuestion);
+    router.get('/admin', homeController.getQuestionDetail);
     return app.use('/', router)
 }
 

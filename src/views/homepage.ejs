@@ -253,12 +253,15 @@
 
         const data = await response.json();
         if (data.success && data.account_type == 0) {
+          // Code here
           document.getElementById('SignIn').style.display = "none";
           document.getElementById('active').style.display = "none";
           document.getElementById('inactive').style.display = "block";
           alert('Login successful');
-          // Render to homepage
+          document.getElementById('defaultOpen').click();
         } else if (data.success && data.account_type == 1) {
+          // Code here
+          location.replace('/admin');
           alert('Login successful with admin');
 
         } else {

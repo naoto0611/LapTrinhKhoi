@@ -4,6 +4,7 @@
 <head>
     <title>Kids Code Academy</title>
     <link rel="stylesheet" href="/css/index.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="javascript_compressed.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,7 +23,7 @@
                 <div class="container-fluid mb-5" id="question-container">
                     <textarea class="p-2" id="question-area">
 <% for(let i=0;i<easyQuestionsData.length;i++){%>
-<%=i+1%> <%=easyQuestionsData[i].ex_question%>
+<%=i+1%>. <%=easyQuestionsData[i].ex_question%>
                 ------------------------------------------
 <%}%>
                     </textarea>
@@ -66,6 +67,11 @@
             <div id="BlocklyDiv-container">
                 <div id="blocklyDiv"></div>
             </div>
+            <!-- pop-up score -->
+            <div  id="pop-up-score" class="container align-items-center justify-content-center shadow-lg p-5">
+                <button id="close-pop-up" onclick="closeScore()"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                <div id="user-score" class="my-5 text-center"></div>
+            </div>    
         </div>
         <!-- Make textarea cannot be editted -->
         <button id="UneditQuestion" onclick="makeQuestionAreaUneditable()" hidden></button>
@@ -886,9 +892,15 @@
 
             //result = result +1;
             //}
-            alert(result + "/15 Points");
+            //alert(result + "/15 Points");
+            result = result + " Points";
+            document.getElementById("user-score").innerHTML = result;
             document.getElementById("submit-answer").disabled = true;
+            document.getElementById("pop-up-score").style.display = "block";
+        }
 
+        function closeScore() {
+            document.getElementById("pop-up-score").style.display = "none";
         }
     </script>
 </body>
