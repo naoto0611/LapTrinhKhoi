@@ -22,11 +22,7 @@
     <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
     <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in"></i> Sign
       In</button>
-<<<<<<< HEAD
-    <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"></i> Sign Out</button>
-=======
     <!-- <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"></i> Sign Out</button> -->
->>>>>>> 4545009ce92004343a0ee790f3e86eba71233b63
   </div>
   <!-- Explore tab -->
   <div id="Explore" class="tabcontent">
@@ -257,17 +253,11 @@
 
         const data = await response.json();
         if (data.success && data.account_type == 0) {
-          document.getElementById('SignIn').style.display = "none";
-          document.getElementById('active').style.display = "none";
-          document.getElementById('inactive').style.display = "block";
-          localStorage.setItem('token', data.message);
-          alert('Login successful');
-          // Render to homepage
-        } else if (data.success && data.account_type == 1) {
           // Code here
           // document.getElementById('SignIn').style.display = "none";
           // document.getElementById('active').style.display = "none";
           // document.getElementById('inactive').style.display = "block";
+          localStorage.setItem('token', data.message);
           location.replace('/KidsCodeAcademy');
           alert('Login successful');
           //document.getElementById('defaultOpen').click();
