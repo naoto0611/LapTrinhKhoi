@@ -119,9 +119,7 @@
     </div>
 
     <xml id="toolbox" style="display: none">
-        <!-- Category "Khối nhập" (Blocks for Input) -->
         <category name="Input" colour="#5b80a5">
-            <!-- Bổ sung label "Nhập số tự nhiên" -->
             <block type="math_number">
                 <field name="NUM" text="Nhập số tự nhiên"></field>
             </block>
@@ -213,11 +211,9 @@
         </category>
 
         <category name="Functions" colour="#BACC00">
-            <block type="procedures_defreturn" gap="8">
-                <field name="NAME">sum_of_three</field>
-                <statement name="STACK">
-                </statement>
-            </block>
+            <block type="custom_function"></block>
+            <block type="custom_function_with_params"></block>
+            <block type="call_function"></block>
         </category>
 
     </xml>
@@ -532,8 +528,89 @@
                 });
             }
         };
+
+        // Function block
+        Blockly.Blocks['custom_function'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Function %1",
+                    "args0": [
+                        {
+                            "type": "field_input",
+                            "name": "NAME",
+                            "text": "function"
+                        }
+                    ],
+                    "message1": "%1",
+                    "args1": [
+                        {
+                            "type": "input_statement",
+                            "name": "STATEMENT"
+                        }
+                    ],
+                    "colour": 230,
+                    "tooltip": "",
+                    "helpUrl": ""
+                });
+            }
+        };
+        Blockly.Blocks['custom_function_with_params'] = {
+
+            init: function () {
+                this.jsonInit(
+                    {
+                        "message0": "Function %1 %2",
+                        "args0": [
+                            {
+                                "type": "field_input",
+                                "name": "NAME",
+                                "text": "function"
+                            },
+                            {
+                                "type": "input_dummy"
+                            }
+                        ],
+                        "message1": "%1",
+                        "args1": [
+                            {
+                                "type": "input_statement",
+                                "name": "INPUT"
+                            }
+                        ],
+                        "message2": "%1",
+                        "args2": [
+                            {
+                                "type": "input_value",
+                                "name": "OUTPUT"
+                            }
+                        ],
+                        "colour": 230,
+                        "tooltip": "",
+                        "helpUrl": ""
+                    });
+            }
+
+        };
+        Blockly.Blocks['call_function'] = {
+            init: function () {
+                this.jsonInit({
+                    "message0": "Call function %1",
+                    "args0": [
+                        {
+                            "type": "field_input",
+                            "name": "NAME",
+                            "text": ""
+                        }
+                    ],
+                    "colour": 230,
+                    "tooltip": "",
+                    "helpUrl": ""
+                });
+            }
+        };
+
         // String processing
-        // Xử lý khối nhập chuỗi
+        // String input processing
         Blockly.JavaScript['string_input'] = function (block) {
             var text_input = block.getFieldValue('TEXT');
             var code = "'" + text_input + "'";
@@ -541,7 +618,7 @@
         };
 
 
-        // Xử lý khối nối chuỗi
+        // String concatenating processing
         Blockly.JavaScript['string_concatenate'] = function (block) {
             var value_string1 = Blockly.JavaScript.valueToCode(block, 'STRING1', Blockly.JavaScript.ORDER_ATOMIC);
             var value_string2 = Blockly.JavaScript.valueToCode(block, 'STRING2', Blockly.JavaScript.ORDER_ATOMIC);
@@ -549,14 +626,14 @@
             return [code, Blockly.JavaScript.ORDER_ADDITION];
         };
 
-        // Xử lý khối độ dài chuỗi
+        // String length processing
         Blockly.JavaScript['string_length'] = function (block) {
             var value_string = Blockly.JavaScript.valueToCode(block, 'STRING', Blockly.JavaScript.ORDER_ATOMIC);
             var code = value_string + '.length';
             return [code, Blockly.JavaScript.ORDER_MEMBER];
         };
 
-        // Xử lý khối cắt chuỗi
+        // String slicing processing
         Blockly.JavaScript['string_slice'] = function (block) {
             var value_string = Blockly.JavaScript.valueToCode(block, 'STRING', Blockly.JavaScript.ORDER_ATOMIC);
             var value_start = Blockly.JavaScript.valueToCode(block, 'START', Blockly.JavaScript.ORDER_ATOMIC);
@@ -565,7 +642,7 @@
             return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
         };
 
-
+        // Sum processing
         Blockly.JavaScript['math_addition'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
@@ -573,6 +650,7 @@
             return [code, Blockly.JavaScript.ORDER_ADDITION];
         };
 
+        // Subtraction processing
         Blockly.JavaScript['math_subtraction'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
@@ -580,6 +658,7 @@
             return [code, Blockly.JavaScript.ORDER_SUBTRACTION];
         };
 
+        // Multiplication processing
         Blockly.JavaScript['math_multiplication'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
@@ -587,13 +666,14 @@
             return [code, Blockly.JavaScript.ORDER_MULTIPLICATION];
         };
 
+        // Devision processing
         Blockly.JavaScript['math_division'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
             var code = value_a + ' / ' + value_b;
             return [code, Blockly.JavaScript.ORDER_DIVISION];
         };
-
+        // Exponentiation processing
         Blockly.JavaScript['math_exponentiation'] = function (block) {
             var value_a = Blockly.JavaScript.valueToCode(block, 'A', Blockly.JavaScript.ORDER_ATOMIC);
             var value_b = Blockly.JavaScript.valueToCode(block, 'B', Blockly.JavaScript.ORDER_ATOMIC);
@@ -601,12 +681,14 @@
             return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
         };
 
+        // Square root processing
         Blockly.JavaScript['math_square_root'] = function (block) {
             var value_num = Blockly.JavaScript.valueToCode(block, 'NUM', Blockly.JavaScript.ORDER_ATOMIC);
             var code = 'Math.sqrt(' + value_num + ')';
             return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
         };
 
+        // Modulo processing
         Blockly.JavaScript['math_modulo'] = function (block) {
             var value_dividend = Blockly.JavaScript.valueToCode(block, 'DIVIDEND', Blockly.JavaScript.ORDER_ATOMIC);
             var value_divisor = Blockly.JavaScript.valueToCode(block, 'DIVISOR', Blockly.JavaScript.ORDER_ATOMIC);
@@ -614,6 +696,7 @@
             return [code, Blockly.JavaScript.ORDER_MODULUS];
         };
 
+        // Custom root processing
         Blockly.JavaScript['math_custom_root'] = function (block) {
             var value_index = Blockly.JavaScript.valueToCode(block, 'INDEX', Blockly.JavaScript.ORDER_ATOMIC);
             var value_num = Blockly.JavaScript.valueToCode(block, 'NUM', Blockly.JavaScript.ORDER_ATOMIC);
@@ -621,6 +704,7 @@
             return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
         };
 
+        // Factorial processing
         Blockly.JavaScript['math_factorial'] = function (block) {
             var value_num = Blockly.JavaScript.valueToCode(block, 'NUM', Blockly.JavaScript.ORDER_ATOMIC);
 
@@ -638,7 +722,33 @@
             return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
         };
 
+        //Function without return value processing
+        Blockly.JavaScript['custom_function'] = function (block) {
+            var name = block.getFieldValue('NAME');
+            var branch = Blockly.JavaScript.statementToCode(block, 'STATEMENT');
 
+            var code = 'function ' + name + '() {\n' + branch + '}\n';
+
+            return code;
+        };
+
+        Blockly.JavaScript['call_function'] = function (block) {
+            var name = block.getFieldValue('NAME');
+            var code = name + '();\n';
+            return code;
+        };
+        //Function with return value processing
+        Blockly.JavaScript['custom_function_with_params'] = function (block) {
+
+            var name = block.getFieldValue('NAME');
+            var branch = Blockly.JavaScript.statementToCode(block, 'INPUT');
+            var returnValue = Blockly.JavaScript.valueToCode(block, 'OUTPUT', Blockly.JavaScript.ORDER_NONE) || '';
+
+            var args = [];
+            var code = 'function ' + name + '(' + args.join(', ') + ') {\n' + branch + '\nreturn ' + returnValue + ';\n}';
+
+            return code;
+        };
 
 
         Blockly.JavaScript.updateWorkspaceBlocks = function (workspace, code) {
@@ -759,24 +869,25 @@
             //let text = document.getElementsByClassName('answer-from-db').value;
             //alert(document.getElementsByClassName('answer-from-db')[0].value.trim());
             //alert(document.getElementsByClassName('answer')[0].value.trim());
-            
+
             let result = 0;
-            for (let i=0; i<15; i++) {
+            for (let i = 0; i < 15; i++) {
                 //document.addEventListener('DOMContentLoaded', function() {
-                    // Your comparison code here
+                // Your comparison code here
                 if (document.getElementsByClassName('answer-from-db')[i].value.trim() == document.getElementsByClassName('answer')[i].value.trim().toLowerCase()) {
                     result += 1;
                     document.getElementsByClassName('answer')[i].style.backgroundColor = "green";
                 } else {
                     document.getElementsByClassName('answer')[i].style.backgroundColor = "#d73c4e";
                 }
-            }; 
-                
+
+            };
+
             //result = result +1;
             //}
             alert(result + "/15 Points");
             document.getElementById("submit-answer").disabled = true;
-            
+
         }
     </script>
 </body>
