@@ -256,6 +256,7 @@
           document.getElementById('SignIn').style.display = "none";
           document.getElementById('active').style.display = "none";
           document.getElementById('inactive').style.display = "block";
+          localStorage.setItem('token', data.message);
           alert('Login successful');
           // Render to homepage
         } else if (data.success && data.account_type == 1) {
