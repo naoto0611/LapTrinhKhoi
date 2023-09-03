@@ -9,6 +9,7 @@
       background-size: cover;
       height: 100%;
       width: 100%;
+      z-index: 9;
     }
     
   #block-page {
@@ -22,6 +23,7 @@
     height: 30vh;
     margin-top: 7%;
     margin-right: 0%;
+    margin-top: 10;
 }
 
 #run-area-container {
@@ -39,9 +41,18 @@
     box-shadow:  8px 8px 0 #e4c16a;
 }
 
-#question-area, #run-area {
+#question-area {
     width: 100%;
     height: 100%;
+    border-radius: 30px;
+    margin-right: 0%;
+    box-shadow:  8px 8px 0 #e4c16a;
+    z-index: 10;
+}
+
+#run-area {
+    width: 100%;
+    height: 70%;
     border-radius: 30px;
     margin-right: 0%;
     box-shadow:  8px 8px 0 #e4c16a;

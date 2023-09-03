@@ -21,7 +21,9 @@
     <button class="tablink" onclick="openPage('LeaderBoard', this, '#C1B945')" id="Leader">Leaderboard</button>
     <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
     <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in"
-        aria-hidden="true"></i> Sign In</button>
+        ></i> Sign In</button>
+    <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"
+      ></i> Sign Out</button>
   </div>
   <!-- Explore tab -->
   <div id="Explore" class="tabcontent">
@@ -221,6 +223,12 @@
     </div>
   </div>
   </div>
+
+  <!-- SignOut tab -->
+  <!-- <div id="SignOut" class="tabcontent">
+    <h2 class="h2 fw-bold">Hi</h2>
+  </div> -->
+  
   <!-- Set default for 1st page -->
   <script>
     document.getElementById("defaultOpen").click();
@@ -245,6 +253,9 @@
 
         const data = await response.json();
         if (data.success) {
+          document.getElementById('SignIn').style.display = "none";
+          document.getElementById('active').style.display = "none";
+          document.getElementById('inactive').style.display = "block";
           alert('Login successful');
           // Do something
         } else {
