@@ -55,7 +55,6 @@
                     <button id="run-button" class="mx-2 px-3 rounded bg-light" onclick="runCode()">Run</button>
                     <button class="mx-2 px-3 rounded bg-light" onclick="importAndLoadBlocks()">Import</button>
                     <button class="mx-2 px-3 rounded bg-light" onclick="exportBlocks()">Export</button>
-                    <p class="m-2 h4 fw-bold" id="result">Result:</p>
                 </div>
                 <div class="container-fluid mb-5" id="run-area-container">
                     <textarea class="p-3" id="run-area"></textarea>
@@ -66,6 +65,9 @@
         <div class="col-sm-12 col-md-7">
             <div id="BlocklyDiv-container">
                 <div id="blocklyDiv"></div>
+            </div>
+            <div class="mt-4" id="result-area-container">
+                <p class="m-4 h4 fw-bold" id="result">Result:</p>
             </div>
             <!-- pop-up score -->
             <div  id="pop-up-score" class="container align-items-center justify-content-center shadow-lg p-5">
