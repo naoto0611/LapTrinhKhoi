@@ -20,8 +20,9 @@
     <button class="tablink" onclick="openPage('Explore', this, '#C1B945')" id="defaultOpen">Explore</button>
     <button class="tablink" onclick="openPage('LeaderBoard', this, '#C1B945')" id="Leader">Leaderboard</button>
     <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
-    <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in"
-        aria-hidden="true"></i> Sign In</button>
+    <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in"></i> Sign
+      In</button>
+    <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"></i> Sign Out</button>
   </div>
   <!-- Explore tab -->
   <div id="Explore" class="tabcontent">
@@ -186,7 +187,8 @@
       </div>
     </form>
     <div class="text-center h5" id="sign-up-pop-up-div">Don't have an account? <button id="sign-up-pop-up"
-        onclick="openForm()"><a>Sign up now</a></ ></div>
+        onclick="openForm()"><a>Sign up now</a></>
+    </div>
 
     <!-- Popup Sign-up form -->
     <div class="sign-up-form" id="sign-up-form">
@@ -221,6 +223,12 @@
     </div>
   </div>
   </div>
+
+  <!-- SignOut tab -->
+  <!-- <div id="SignOut" class="tabcontent">
+    <h2 class="h2 fw-bold">Hi</h2>
+  </div> -->
+
   <!-- Set default for 1st page -->
   <script>
     document.getElementById("defaultOpen").click();
@@ -244,12 +252,15 @@
         });
 
         const data = await response.json();
-        if (data.success && data.account_type == 1) {
-          alert('Login successful with admin account');
-          // Render to admin UI
-        } else if (data.success && data.account_type != 1){
+        if (data.success && data.account_type == 0) {
+          document.getElementById('SignIn').style.display = "none";
+          document.getElementById('active').style.display = "none";
+          document.getElementById('inactive').style.display = "block";
           alert('Login successful');
           // Render to homepage
+        } else if (data.success && data.account_type == 1) {
+          alert('Login successful with admin');
+
         } else {
           alert('Login failed');
         }

@@ -57,7 +57,7 @@ body {
   border: none;
 }
 
-#active {
+#active, #inactive {
   background-color: #5fc8a3;
 }
 
@@ -141,4 +141,8 @@ body {
   margin: 0 0.5vw;
   padding: 0 2%;
   box-shadow:  4px 4px 0 #2e2d2b;
+}
+
+#inactive {
+  display: none;
 }

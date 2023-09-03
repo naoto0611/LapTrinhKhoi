@@ -75,6 +75,9 @@ app.get('/level/hard', (req, res) => {
   res.render('hardLevel.ejs');
 });
 
+app.get('/admin', (req,res) => {
+  res.render('admin.ejs');
+});
 
 
 // const users =[]

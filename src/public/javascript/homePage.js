@@ -25,7 +25,12 @@ function closeForm() {
 
 //choose level 
 function chooseLevel() {
-  location.replace("/level");
+  //location.replace("/level");
+  if (document.getElementById("inactive").style.display == "") 
+    document.getElementById('active').click();
+  else
+    location.replace("/level");
+  //alert(document.getElementById("inactive").style.display);
 }
 
 //ranking tabs
@@ -43,4 +48,8 @@ function openRankingTabs(levelRanking, element, color) {
 
   document.getElementById(levelRanking).style.display = "block";
   element.style.backgroundColor = color;
+}
+
+function signOut() {
+  location.replace('/');
 }
