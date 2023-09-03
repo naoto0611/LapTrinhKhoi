@@ -186,7 +186,7 @@
       </div>
     </form>
     <div class="text-center h5" id="sign-up-pop-up-div">Don't have an account? <button id="sign-up-pop-up"
-        onclick="openForm()"><a>Sign up now</a></button></div>
+        onclick="openForm()"><a>Sign up now</a></ ></div>
 
     <!-- Popup Sign-up form -->
     <div class="sign-up-form" id="sign-up-form">
@@ -244,9 +244,12 @@
         });
 
         const data = await response.json();
-        if (data.success) {
+        if (data.success && data.account_type == 1) {
+          alert('Login successful with admin account');
+          // Render to admin UI
+        } else if (data.success && data.account_type != 1){
           alert('Login successful');
-          // Do something
+          // Render to homepage
         } else {
           alert('Login failed');
         }
