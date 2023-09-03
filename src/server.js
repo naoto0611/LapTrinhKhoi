@@ -136,8 +136,9 @@ app.post('/register', async (req, res) => {
     if (existingUser) {
       return res.json({ success: false, message: 'exist' });
     }
+    const accountType = 0;
     const hashedPassword = bcrypt.hashSync(password, 10);
-    const result = await db.none('INSERT INTO users(username, user_dob, accountname, userpassword) VALUES($1, $2, $3, $4)', [fullName, dob, username, hashedPassword]);
+    const result = await db.none('INSERT INTO users(username, user_dob, accountname, userpassword, accounttype) VALUES($1, $2, $3, $4, $5)', [fullName, dob, username, hashedPassword, accountType]);
 
     res.json({ success: true, message: 'Registration successful' });
   } catch (error) {
@@ -153,9 +154,10 @@ app.post('/login', async (req, res) => {
     const user = await db.oneOrNone('SELECT * FROM users WHERE accountname = $1', [username]);
 
     if (user && bcrypt.compareSync(password, user.userpassword)) {
-      const userId = user.userid; // Lấy ID người dùng từ cơ sở dữ liệu
+      const userId = user.userid;
+      const accountType = user.accounttype;
       const token = jwt.sign({ userId }, jwtSecret, { expiresIn: '10h' });
-      res.json({ success: true, message: token });
+      res.json({ success: true, message: token, account_type: accountType });
     } else {
       res.json({ success: false, message: 'Login failed' });
     }
