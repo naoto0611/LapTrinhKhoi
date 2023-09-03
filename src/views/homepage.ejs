@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kids Code Academy</title>
+  <!-- css -->
+  <link rel="stylesheet" href="/css/homePage.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- javascript -->
+  <script src="/javascript/homePage.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <!-- Fullpage tab -->
+  <div class="container d-flex flex-row mt-3 justify-content-end h1 px-5 py-3" id="fullTab">
+    <button class="tablink" onclick="openPage('Explore', this, '#C1B945')" id="defaultOpen">Explore</button>
+    <button class="tablink" onclick="openPage('LeaderBoard', this, '#C1B945')" id="Leader">Leaderboard</button>
+    <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
+    <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in"></i> Sign
+      In</button>
+    <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"></i> Sign Out</button>
+  </div>
+  <!-- Explore tab -->
+  <div id="Explore" class="tabcontent">
+    <h2 class="h2 fw-bold">Welcome to Kids Code Academy</h2>
+    <p class="h3">Unlock the World of Creativity and Problem-Solving through Fun Coding Blocks!
+      At Kids Code Academy, we believe that learning to code is not only essential in today's technology-driven world
+      but can also be an incredibly fun and creative journey for young minds. Our platform is specially designed to
+      introduce programming concepts to children in a way that is engaging, interactive, and age-appropriate.
+      With our colorful and intuitive coding blocks, kids can easily grasp the fundamentals of coding and develop their
+      logical thinking skills. Whether they're building their first simple games, designing interactive stories, or
+      creating animated characters, our platform empowers young learners to express their ideas and turn them into
+      reality.</p>
+    <button id="StartNow" class="h3 fw-bold mt-3 py-2 px-4" onclick="chooseLevel()">Start now</button>
+  </div>
+  <!-- Leaderboard tab -->
+  <div id="LeaderBoard" class="tabcontent">
+    <h2 id="Ranking" class="text-center h2 fw-bold">Ranking</h2>
+
+    <!-- Level tabs -->
+    <div class="container d-flex flex-row mt-3 justify-content-center h1 px-5 py-3" id="level-fullTab">
+      <button class="tablevel" onclick="openRankingTabs('easy-ranking-table', this, '#68FE89')"
+        id="defaultOpen1">Easy</button>
+      <button class="tablevel" onclick="openRankingTabs('medium-ranking-table', this, '#FFE489')">Medium</button>
+      <button class="tablevel" onclick="openRankingTabs('hard-ranking-table', this, '#F97171')">Hard</button>
+    </div>
+
+    <!-- Easy level -->
+    <!-- <h3 class="text-center h1 text-success fw-bold mt-5">EASY LEVEL</h3> -->
+
+    <div class="level-ranking" id="easy-ranking-table">
+      <table class="table">
+        <thead class="h3">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col" style="text-align: center;">Score</th>
+          </tr>
+        </thead>
+        <tbody class="h3">
+          <% for(let i=0;i<easyRankingData.length;i++){%>
+            <tr>
+              <th scope="row">
+                <%=i+1%>
+              </th>
+              <td>
+                <%=easyRankingData[i].username%>
+              </td>
+              <td style="text-align: center;">
+                <%=easyRankingData[i].result_point%>
+              </td>
+            </tr>
+            <%}%>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Medium level -->
+    <!-- <h3 class="text-center h1 text-success fw-bold mt-5">MEDIUM LEVEL</h3> -->
+
+    <div class="level-ranking" id="medium-ranking-table">
+      <table class="table">
+        <thead class="h3">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col" style="text-align: center;">Score</th>
+          </tr>
+        </thead>
+        <tbody class="h3">
+          <% for(let i=0;i<mediumRankingData.length;i++){%>
+            <tr>
+              <th scope="row">
+                <%=i+1%>
+              </th>
+              <td>
+                <%=mediumRankingData[i].username%>
+              </td>
+              <td style="text-align: center;">
+                <%=mediumRankingData[i].result_point%>
+              </td>
+            </tr>
+            <%}%>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Hard level -->
+    <!-- <h3 class="text-center h1 text-success fw-bold mt-5">HARD LEVEL</h3> -->
+
+    <div class="level-ranking" id="hard-ranking-table">
+      <table class="table">
+        <thead class="h3">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col" style="text-align: center;">Score</th>
+          </tr>
+        </thead>
+        <tbody class="h3">
+          <% for(let i=0;i<hardRankingData.length;i++){%>
+            <tr>
+              <th scope="row">
+                <%=i+1%>
+              </th>
+              <td>
+                <%=hardRankingData[i].username%>
+              </td>
+              <td style="text-align: center;">
+                <%=hardRankingData[i].result_point%>
+              </td>
+            </tr>
+            <%}%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- About Us tab -->
+  <div id="AboutUs" class="tabcontent">
+    <h2 class="text-center h2 fw-bold">Our team</h2>
+    <p class="text-center h4">We hope that our product can inspire the programming spirit to kids.</p>
+    <div class="row justify-content-start">
+      <div class="col-3 mt-2" id="tri-profile">
+        <div class="card">
+          <img src="/images/NguyenMinhTri.png" alt="Nguyen Minh Tri" />
+          <div class="container">
+            <h2 class="text-center"><b>Tri Nguyen</b></h2>
+            <p class="h3">Fullstack Developer</p>
+            <p class="h3">519H0243@student.tdtu.edu.vn</p>
+            <p><button class="container w-100 bg-dark mt-2 text-white">Contact</button></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 mt-2" id="nhan-profile">
+        <div class="card">
+          <img src="/images/TruongTuanNhan.png" alt="Truong Tuan Nhan" />
+          <div class="container">
+            <h2 class="text-center"><b>Nhan Truong</b></h2>
+            <p class="h3">Fullstack Developer</p>
+            <p class="h3">519H0208@student.tdtu.edu.vn</p>
+            <p><button class="container w-100 bg-dark mt-2 text-white">Contact</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Sign in tab -->
+  <div id="SignIn" class="tabcontent">
+    <h2 class="text-center h2 fw-bold">SIGN IN</h2>
+    <p class="text-center h4">Welcome back!</p>
+    <form action="" method="post" class="container d-flex flex-column" id="sign-in-form">
+      <div class="mb-3">
+        <label for="Username" class="form-label" id="Username">Username</label>
+        <input type="text" placeholder="" name="Username" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="Password" class="form-label" id="Password">Password</label>
+        <input type="password" placeholder="" name="Password" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="w-100 py-2 fw-bold h4" id="signIn-button">Sign in</button>
+      </div>
+    </form>
+    <div class="text-center h5" id="sign-up-pop-up-div">Don't have an account? <button id="sign-up-pop-up"
+        onclick="openForm()"><a>Sign up now</a></>
+    </div>
+
+    <!-- Popup Sign-up form -->
+    <div class="sign-up-form" id="sign-up-form">
+      <form action="" class="container d-flex flex-column bg-light shadow-lg rounded">
+        <h1 class="text-center fw-bold pt-4">SIGN UP</h1>
+        <div class="text-center h4">Create your account now</div>
+
+        <div class="mb-3">
+          <label for="Fullname" class="form-label">Full name</label>
+          <input type="text" id="p-fullName" class="form-control" placeholder="" name="Fullname" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="dob" class="form-label">Date of birth</label>
+          <input type="date" id="p-dob" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="Username" class="form-label">Username</label>
+          <input type="text" id="p-userName" class="form-control" placeholder="" name="Username" required />
+        </div>
+
+        <div class="mb-3">
+          <label for="psw" class="form-label"><b>Create a password</b></label>
+          <input type="password" id="p-password" class="form-control" placeholder="" name="password" required />
+        </div>
+
+        <button type="submit" class="bg-warning m-2 h5 fw-bold py-2 shadow" id="p-signUp">Sign up</button>
+        <button type="button" class="bg-danger m-2 h5 fw-bold py-2 shadow" id="p-close"
+          onclick="closeForm()">Close</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <!-- SignOut tab -->
+  <!-- <div id="SignOut" class="tabcontent">
+    <h2 class="h2 fw-bold">Hi</h2>
+  </div> -->
+
+  <!-- Set default for 1st page -->
+  <script>
+    document.getElementById("defaultOpen").click();
+    document.getElementById("defaultOpen1").click();
+
+    //-------------------------------------------//
+    // Sign in
+    document.getElementById('sign-in-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const username = document.getElementsByName('Username')[0].value;
+      const password = document.getElementsByName('Password')[0].value;
+
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+        if (data.success && data.account_type == 0) {
+          document.getElementById('SignIn').style.display = "none";
+          document.getElementById('active').style.display = "none";
+          document.getElementById('inactive').style.display = "block";
+          localStorage.setItem('token', data.message);
+          alert('Login successful');
+          // Render to homepage
+        } else if (data.success && data.account_type == 1) {
+          alert('Login successful with admin');
+
+        } else {
+          alert('Login failed');
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+        alert(error);
+      }
+    });
+
+    // Sign up
+    document.getElementById('sign-up-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const fullName = document.getElementById('p-fullName').value;
+      const dob = document.getElementById('p-dob').value;
+      const username = document.getElementById('p-userName').value;
+      const password = document.getElementById('p-password').value;
+
+      try {
+        const response = await fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ fullName, dob, username, password }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          alert('Registration successful');
+        } else {
+          if (data.message === 'exist') {
+            alert('Registration failed: Username already exists');
+          } else {
+            alert('Registration failed');
+          }
+        }
+      } catch (error) {
+        console.error('Error during registration:', error);
+        alert('An error occurred during registration');
+      }
+    });
+
+
+  //-------------------------------------------//
+  </script>
+</body>
+
+</html>

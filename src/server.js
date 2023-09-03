@@ -202,17 +202,6 @@ app.post('/saveresult', async (req, res) => {
 });
 
 
-
-// Ví dụ sử dụng middleware authenticateToken
-api.get('/protected-resource', authenticateToken, (req, res) => {
-  res.json({ message: 'This is a protected resource', user: req.user });
-});
-
-
-//------------------------------------//
-// const randomStr = () => require('crypto').randomBytes(64).toString('hex');
-// console.log('token', randomStr);
-
 // Start the web server
 app.listen(webPort, () => {
   console.log(`Web Server is running on port ${webPort}`);
