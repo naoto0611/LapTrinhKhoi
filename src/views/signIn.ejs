@@ -20,9 +20,7 @@
     <button class="tablink" onclick="openPage('Explore', this, '#C1B945')" id="defaultOpen">Explore</button>
     <button class="tablink" onclick="openPage('LeaderBoard', this, '#C1B945')" id="Leader">Leaderboard</button>
     <button class="tablink" onclick="openPage('AboutUs', this, '#C1B945')">About Us</button>
-    <button class="tablink" onclick="openPage('SignIn', this, '#C1B945')" id="active"><i class="fa fa-sign-in"></i> Sign
-      In</button>
-    <!-- <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"></i> Sign Out</button> -->
+    <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"></i> Sign Out</button>
   </div>
   <!-- Explore tab -->
   <div id="Explore" class="tabcontent">
@@ -254,12 +252,11 @@
         const data = await response.json();
         if (data.success && data.account_type == 0) {
           // Code here
-          // document.getElementById('SignIn').style.display = "none";
-          // document.getElementById('active').style.display = "none";
-          // document.getElementById('inactive').style.display = "block";
-          location.replace('/KidsCodeAcademy');
+          document.getElementById('SignIn').style.display = "none";
+          document.getElementById('active').style.display = "none";
+          document.getElementById('inactive').style.display = "block";
           alert('Login successful');
-          //document.getElementById('defaultOpen').click();
+          document.getElementById('defaultOpen').click();
         } else if (data.success && data.account_type == 1) {
           // Code here
           location.replace('/admin');

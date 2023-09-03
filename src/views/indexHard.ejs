@@ -73,6 +73,11 @@
                 <button id="close-pop-up" onclick="closeScore()"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
                 <div id="user-score" class="my-5 text-center"></div>
             </div>
+            <!-- back button -->
+            <button id="back-homepage" onclick="backHome()"><i class="fa fa-undo" aria-hidden="true"></i> Back to Homepage</button>
+            <!-- time counter -->
+            <button id="time-counter-button" onclick="startCountdown(1800)" hidden></button>
+            <div id="time-counter"></div>
         </div>
         <!-- Make textarea cannot be editted -->
         <button id="UneditQuestion" onclick="makeQuestionAreaUneditable()" hidden></button>
@@ -872,6 +877,8 @@
         }
         document.getElementById("UneditRun").click();
 
+        document.getElementById('time-counter-button').click();
+
         // get the answer
         document.getElementById('submit-answer').addEventListener('click', async () => {
             const level = document.referrer.split("/").pop(); // get level
@@ -907,12 +914,34 @@
             }
             result = result + " Points";
             document.getElementById("user-score").innerHTML = result;
+            result = result + " Points";
+            document.getElementById("user-score").innerHTML = result;
             document.getElementById("submit-answer").disabled = true;
+            document.getElementById("submit-answer").style.backgroundColor = "green";
             document.getElementById("pop-up-score").style.display = "block";
         });
 
         function closeScore() {
             document.getElementById("pop-up-score").style.display = "none";
+        }
+
+        function backHome() {
+            location.replace("/KidsCodeAcademy");
+        }
+
+        function startCountdown(seconds) {
+            let counter = seconds;
+                
+            const interval = setInterval(() => {
+                console.log(counter);
+                counter--;
+                document.getElementById("time-counter").innerHTML = counter;
+                
+                if (counter == 0 ) {
+                clearInterval(interval);
+                document.getElementById('submit-answer').click();
+                }
+            }, 1000);
         }
     </script>
 </body>

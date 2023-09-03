@@ -69,8 +69,9 @@
                 <p class="m-4 h4 fw-bold" id="result">Result:</p>
             </div>
             <!-- pop-up score -->
-            <div  id="pop-up-score" class="container align-items-center justify-content-center shadow-lg p-5">
-                <button id="close-pop-up" onclick="closeScore()"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+            <div id="pop-up-score" class="container align-items-center justify-content-center shadow-lg p-5">
+                <button id="close-pop-up" onclick="closeScore()"><i class="fa fa-times-circle"
+                        aria-hidden="true"></i></button>
                 <div id="user-score" class="my-5 text-center"></div>
             </div>
         </div>
@@ -871,6 +872,7 @@
             textarea.disabled = true;
         }
         document.getElementById("UneditRun").click();
+        document.getElementById('time-counter-button').click();
 
         document.getElementById('submit-answer').addEventListener('click', async () => {
             const level = document.referrer.split("/").pop(); // get level
@@ -906,7 +908,10 @@
             }
             result = result + " Points";
             document.getElementById("user-score").innerHTML = result;
+            result = result + " Points";
+            document.getElementById("user-score").innerHTML = result;
             document.getElementById("submit-answer").disabled = true;
+            document.getElementById("submit-answer").style.backgroundColor = "green";
             document.getElementById("pop-up-score").style.display = "block";
         });
 
