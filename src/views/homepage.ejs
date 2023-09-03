@@ -253,25 +253,15 @@
 
         const data = await response.json();
         if (data.success && data.account_type == 0) {
-          document.getElementById('SignIn').style.display = "none";
-          document.getElementById('active').style.display = "none";
-          document.getElementById('inactive').style.display = "block";
+          location.replace('/KidsCodeAcademy');
           localStorage.setItem('token', data.message);
           alert('Login successful');
           // Render to homepage
         } else if (data.success && data.account_type == 1) {
           // Code here
-          // document.getElementById('SignIn').style.display = "none";
-          // document.getElementById('active').style.display = "none";
-          // document.getElementById('inactive').style.display = "block";
-          location.replace('/KidsCodeAcademy');
+          location.replace('/admin');
           alert('Login successful');
           //document.getElementById('defaultOpen').click();
-        } else if (data.success && data.account_type == 1) {
-          // Code here
-          location.replace('/admin');
-          alert('Login successful with admin');
-
         } else {
           alert('Login failed');
         }
