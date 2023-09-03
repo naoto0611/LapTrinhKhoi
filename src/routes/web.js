@@ -6,6 +6,7 @@ let router = express.Router();
 
 const initWebRoute = (app) => {
     router.get('/', homeController.getRankingData);
+    router.get('/KidsCodeAcademy', homeController.getRankingDataSignIn);
     router.get('/easyBlock', homeController.getEasyQuestionData);
     router.get('/mediumBlock', homeController.getMediumQuestionData);
     router.get('/hardBlock', homeController.getHardQuestionData);

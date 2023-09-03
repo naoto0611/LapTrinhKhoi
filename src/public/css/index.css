@@ -121,6 +121,40 @@
     display: none;
 }
 
+#back-homepage, #time-counter {
+    width: 5%;
+    height: 5%;
+    position: absolute;
+    right:0;
+    top:0;
+    border: none;
+    background-color: none;
+    cursor: pointer;
+    color:#d5641e;
+    margin-top: 5%;
+    margin-right: 7%;
+    box-shadow: 4px 4px black;
+    font-weight: bold;
+}
+
+#time-counter {
+    width: 5%;
+    height: 5%;
+    position: absolute;
+    right:0;
+    top:0;
+    border: none;
+    background-color: none;
+    cursor: pointer;
+    color:#0a0a0a;
+    margin-top: 10%;
+    margin-right: 7%;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid black;
+}
+
 #close-pop-up {
     font-size: 20px;
     top: 0px;
@@ -134,3 +168,12 @@
     background-color: #e4c16a;
 }
 
+#submit-answer {
+    background-color: #40c340;
+    margin-left: 11%;
+}
+
+
+#submit-answer:hover{
+    background-color: green;
+} 

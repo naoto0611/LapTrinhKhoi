@@ -75,8 +75,12 @@ app.get('/level/hard', (req, res) => {
   res.render('hardLevel.ejs');
 });
 
-app.get('/admin', (req, res) => {
+app.get('/admin', (req,res) => {
   res.render('admin.ejs');
+});
+
+app.get('/KidsCodeAcademy', (req, res) => {
+  res.render('signIn.ejs');
 });
 
 
@@ -99,7 +103,7 @@ app.get('/admin', (req, res) => {
 //     users.push(user);
 //     res.status(201).send();
 
-
+    
 //     console.log('salt', salt);
 //     console.log('hashed password', hashedPassword);
 //   } catch {
@@ -130,23 +134,6 @@ api.get('/api/protected-resource', authenticateToken, (req, res) => {
   res.json({ message: 'This is a protected resource', user: req.user });
 });
 
-// Middlewate to authenticate
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (!token) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-  try {
-    const decoded = jwt.verify(token, jwtSecret);
-    req.userId = decoded.userId;
-    next();
-    console.log('Token from client:', token);
-    console.log('Decoded token:', decoded);
-  } catch (error) {
-    return res.status(403).json({ message: 'Invalid token' });
-  }
-}
 
 // Sign up
 app.post('/register', async (req, res) => {
@@ -187,21 +174,25 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Middlewate to authenticate
+function authenticateToken(req, res, next) {
+  const token = req.headers['authorization'];
 
-app.post('/saveresult', async (req, res) => {
-  const { level, result, token } = req.body;
-  try {
-    const decoded = jwt.verify(token, jwtSecret);
-    const userId = decoded.userId;
-    await db.none('INSERT INTO result (userid, result_level, result_point) VALUES ($1, $2, $3)', [userId, level, result]);
-    res.json({ success: true, message: 'Result saved successfully' });
-  } catch (error) {
-    console.error('Error saving result:', error);
-    res.status(500).json({ success: false, message: 'Error saving result' });
+  if (!token) {
+    console.log('No token provided');
+    return res.sendStatus(401);
   }
-});
 
+  jwt.verify(token, jwtSecret, (err, user) => {
+    if (err) {
+      console.log('Token verification error:', err);
+      return res.sendStatus(403);
+    }
+    req.user = user;
+    next();
 
+  });
+}
 
 // Ví dụ sử dụng middleware authenticateToken
 api.get('/protected-resource', authenticateToken, (req, res) => {

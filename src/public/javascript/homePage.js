@@ -26,11 +26,16 @@ function closeForm() {
 //choose level 
 function chooseLevel() {
   //location.replace("/level");
-  if (document.getElementById("inactive").style.display == "") 
-    document.getElementById('active').click();
-  else
-    location.replace("/level");
+  // if (document.getElementById("inactive").style.display == "") 
+  //   document.getElementById('active').click();
+  // else
+  //   location.replace("/level");
   //alert(document.getElementById("inactive").style.display);
+  if (location.pathname != "/") {
+    location.replace("/level");
+  } else {
+    document.getElementById('active').click();
+  }
 }
 
 //ranking tabs
