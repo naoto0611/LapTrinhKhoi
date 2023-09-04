@@ -52,6 +52,14 @@ body {
   font-family: SchoolBell;
 }
 
+#Explore h2 {
+  margin-top: 10vh;
+}
+
+#Explore p {
+  line-height: 1.4;
+}
+
 #StartNow {
   background-color: #F0BF1C;
   border-radius: 30px;

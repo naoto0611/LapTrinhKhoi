@@ -90,16 +90,17 @@ class homeController {
 
     static getQuestionDetail = async (req, res) => {
         let question = await db.query(`select * from public.exercises`);
-        return res.render('admin.ejs', { questionDetail: question });
+        let user = await db.query(`select * from public.users`);
+        return res.render('admin.ejs', { questionDetail: question, userDetail: user });
     }
 
-    // static editUser = async (req, res) => {
-    //     let id = req.params.id;
-    //     let user = await db.query(`Select * from public.customer where cus_id = ${id}`);
-    //     //console.log(JSON.stringify(user))
-    //     return res.render('update.ejs', { dataUser: user[0] });
+    static editUser = async (req, res) => {
+        let { userId, type } = req.body;
+        await db.query(`update public.users set accounttype = ${type} where userid = ${userId}`);
+        //console.log(JSON.stringify(user))
+        return res.redirect('/admin');
 
-    // }
+    }
 
     // static updateInfo = async (req, res) => {
     //     let { name, address, phone, id } = req.body;
@@ -116,11 +117,17 @@ class homeController {
         return res.redirect('/admin');
     }
 
-    // static deleteUser = async (req, res) => {
-    //     let id = req.body.delete_id;
-    //     await db.query(`delete from public.customer where cus_id='${id}'`);
-    //     return res.redirect("/");
-    // }
+    static deleteQuestion = async (req, res) => {
+        let { questionID } = req.body;
+        await db.query(`delete from public.exercises where ex_id=${questionID}`);
+        return res.redirect("/admin");
+    }
+
+    static deleteUser = async (req, res) => {
+        let { userID } = req.body;
+        await db.query(`delete from public.users where userid=${userID}`);
+        return res.redirect("/admin");
+    }
 }
 
 export default homeController;

@@ -11,7 +11,10 @@ const initWebRoute = (app) => {
     router.get('/mediumBlock', homeController.getMediumQuestionData);
     router.get('/hardBlock', homeController.getHardQuestionData);
     router.post('/add-new-question', homeController.addQuestion);
+    router.post('/delete-question', homeController.deleteQuestion);
+    router.post('/delete-user', homeController.deleteUser);
     router.get('/admin', homeController.getQuestionDetail);
+    router.post('/edit-user-type', homeController.editUser);
     return app.use('/', router)
 }
 

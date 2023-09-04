@@ -50,13 +50,56 @@ body {
   #UserList {
     margin-top: 3%;
     font-family: SchoolBell;
+    width: 70%;
+    height: 50%;
+    margin-left: 15%;
   }
 
   .tabcontent {
     display: none;
+    font-family: SchoolBell;
   }
 
 #user-list {
-    width: 80vw;
+    width: 70vw;
     height: 50vh;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#question-list {
+  width: 70vw;
+  height: 50vh;
+  font-family: 'Times New Roman', Times, serif;
+  margin-left: 15vw;
+  margin-top: 5vh;
+}
+
+#update-popup-form {
+  background-color: rgb(222, 228, 228);
+  width: 20vw;
+  height: 35vh;
+  position: absolute;
+  z-index: 10;
+  top: 20vh;
+  left: 40vw;
+  padding: 2%;
+  border-radius: 10px;
+  box-shadow: 4px 4px black;
+  display: none;
+}
+
+#update-popup-form button {
+  width: 100%;
+}
+
+#close-update-form {
+  padding-top: 0;
+}
+
+#delete-form input, #delete-user-form input {
+  width: 20vw;
+}
+
+#delete-form {
+  margin-left: 15vw;
 }

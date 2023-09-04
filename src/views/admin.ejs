@@ -13,15 +13,66 @@
     </head>
 <body>
     <div class="container d-flex flex-row mt-3 justify-content-end h1 px-5 py-3" id="fullTab">
-        <button class="tablink" onclick="openPage('UserList', this, '#C1B945')" id="defaultOpen">Users</button>
-        <button class="tablink" onclick="openPage('admin-form', this, '#C1B945')">Add</button>
+        <button class="tablink" onclick="openPage('UserList', this, '#C1B945')" id="defaultOpen">User</button>
+        <button class="tablink" onclick="openPage('QuestionList', this, '#C1B945')">Question</button>
+        <button class="tablink" onclick="openPage('admin-form', this, '#C1B945')">Add Question</button>
         <button class="tablink" onclick="signOut()" id="inactive"><i class="fa fa-sign-in"></i> Sign Out</button>
     </div>
     
-    <!-- Explore tab -->
+    <!-- User tab -->
     <div id="UserList" class="tabcontent">
-    <!-- table -->
+        <textarea id="user-list">
+            <%for(let i=0;i<userDetail.length;i++) {%>
+            <%=userDetail[i].userid%>    ||    <%=userDetail[i].username%>   ||   <%=userDetail[i].usermail%>    ||   <%=userDetail[i].accounttype%>
+            <%}%>
+        </textarea>
+        <div class="sub-tabcontent" id="delete-user-form">
+            <form action="/delete-user" method="POST" class="form">
+                <label for="userID" class="form-label"><b>User ID</b></label>
+                <input type="text" class="form-control" placeholder="" name="userID">
     
+                <button type="submit" class="my-3 rounded bg-success">Delete</button>
+            </form>
+            <button onclick="openUpdate()" class="mt-0 rounded bg-primary">Update</button>
+        </div>
+        <div id="update-popup-form">
+            <form action="/edit-user-type" method="POST" class="form">
+                <h3 class="text-center fw-bold h2">Update</h3>
+
+                <label for="userID" class="form-label"><b>User ID</b></label>
+                <input type="text" class="form-control" placeholder="" name="userId">
+
+                <label for="userType" class="form-label"><b>User Type</b></label>
+                <select class="form-control" name="type">
+                    <option type="number" value=0>0</option>
+                    <option type="number" value=1>1</option>
+                </select>
+
+                <button id="update-submit-button" type="submit" class="my-3 rounded bg-success">Confirm</button>
+            </form>
+        <button id="close-update-form" class="mt-0 rounded bg-danger" onclick="closeUpdate()">Close</button>
+        </div>
+        <button id="UneditUserList" onclick="makeUserAreaUneditable()" hidden></button>
+    </div>
+
+    <!-- Question tab -->
+    <div id="QuestionList" class="tabcontent">
+        <textarea id="question-list">
+            <%for(let i=0;i<questionDetail.length;i++) {%>
+            <%=questionDetail[i].ex_id%>. <%=questionDetail[i].ex_question%>.   ||  (<%=questionDetail[i].ex_answer%>)    ||  {<%=questionDetail[i].ex_level%>}
+            <%}%>
+        </textarea>
+        <div class="sub-tabcontent" id="delete-form">
+            <form action="/delete-question" method="POST" class="form">
+                <label for="QuestionID" class="form-label"><b>Question ID</b></label>
+                <input type="text" class="form-control" placeholder="" name="questionID">
+    
+                <button type="submit" class="my-3 rounded bg-success">Delete</button>
+            </form>
+        </div>
+        <!-- onclick event to make textare be uneditted -->
+        <button id="UneditQuestionList" onclick="makeQuestionAreaUneditable()" hidden></button>
+        <button id="UneditUserList" onclick="makeUserAreaUneditable()" hidden></button>
     </div>
     
     <!-- Add question tab -->
@@ -47,6 +98,28 @@
     </div>
     <script>
         document.getElementById("defaultOpen").click();
+        
+        // function to make textarea be uneditted
+        function makeQuestionAreaUneditable() {
+            const textarea = document.getElementById("question-list");
+            textarea.disabled = true;
+        }
+        document.getElementById("UneditQuestionList").click();
+
+        function makeUserAreaUneditable() {
+            const textarea = document.getElementById("user-list");
+            textarea.disabled = true;
+        }
+        document.getElementById("UneditUserList").click();
+
+        //update popup
+        function openUpdate() {
+            document.getElementById('update-popup-form').style.display = "block";
+        }
+
+        function closeUpdate() {
+            document.getElementById('update-popup-form').style.display = "none";
+        }
     </script>
 </body>
 </html>
